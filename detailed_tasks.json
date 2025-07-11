@@ -1,0 +1,1015 @@
+{
+  "project": "FluxNews",
+  "description": "AI-powered real-time global news impact analysis platform for Korean investors",
+  "total_estimated_hours": 300,
+  "timeline": "4 weeks",
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Project Setup",
+      "status": "completed",
+      "priority": "high",
+      "estimated_hours": 8,
+      "subtasks": [
+        {
+          "id": "1.1",
+          "title": "Initialize project structure",
+          "status": "completed",
+          "estimated_hours": 2,
+          "details": [
+            {
+              "id": "1.1.1",
+              "title": "Create monorepo structure with frontend/backend folders",
+              "status": "completed"
+            },
+            {
+              "id": "1.1.2",
+              "title": "Set up Git repository and .gitignore",
+              "status": "completed"
+            },
+            {
+              "id": "1.1.3",
+              "title": "Create environment variable templates",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "1.2",
+          "title": "Setup Next.js frontend with TypeScript",
+          "status": "completed",
+          "estimated_hours": 2,
+          "details": [
+            {
+              "id": "1.2.1",
+              "title": "Initialize Next.js 14 with App Router",
+              "status": "completed"
+            },
+            {
+              "id": "1.2.2",
+              "title": "Configure TypeScript and ESLint",
+              "status": "completed"
+            },
+            {
+              "id": "1.2.3",
+              "title": "Set up Tailwind CSS with custom theme colors",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "1.3",
+          "title": "Setup FastAPI backend",
+          "status": "completed",
+          "estimated_hours": 2,
+          "details": [
+            {
+              "id": "1.3.1",
+              "title": "Create FastAPI project structure with routers",
+              "status": "completed"
+            },
+            {
+              "id": "1.3.2",
+              "title": "Configure Pydantic models and settings",
+              "status": "completed"
+            },
+            {
+              "id": "1.3.3",
+              "title": "Set up CORS and middleware",
+              "status": "completed"
+            }
+          ]
+        },
+        {
+          "id": "1.4",
+          "title": "Configure Supabase integration",
+          "status": "completed",
+          "estimated_hours": 2,
+          "details": [
+            {
+              "id": "1.4.1",
+              "title": "Create Supabase project and configure auth",
+              "status": "completed"
+            },
+            {
+              "id": "1.4.2",
+              "title": "Set up database schema with migrations",
+              "status": "completed"
+            },
+            {
+              "id": "1.4.3",
+              "title": "Configure Row Level Security policies",
+              "status": "completed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Frontend Development",
+      "status": "in_progress",
+      "priority": "high",
+      "estimated_hours": 60,
+      "dependencies": ["1"],
+      "subtasks": [
+        {
+          "id": "2.1",
+          "title": "Create landing page",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "2.1.1",
+              "title": "Design hero section with value proposition",
+              "description": "AI가 글로벌 뉴스를 실시간 분석해 한국 모빌리티/로봇 기업 투자 인사이트 제공"
+            },
+            {
+              "id": "2.1.2",
+              "title": "Create feature showcase sections",
+              "description": "Real-time analysis, Company network, Impact scores, Korean language support"
+            },
+            {
+              "id": "2.1.3",
+              "title": "Implement pricing plans component",
+              "description": "Free tier vs Premium ($9.99/month) comparison"
+            },
+            {
+              "id": "2.1.4",
+              "title": "Add call-to-action buttons with animations"
+            }
+          ]
+        },
+        {
+          "id": "2.2",
+          "title": "Implement authentication UI",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "2.2.1",
+              "title": "Create login/signup forms with validation",
+              "tech": "React Hook Form + Zod"
+            },
+            {
+              "id": "2.2.2",
+              "title": "Implement OAuth providers",
+              "description": "Google, GitHub, prepare for Kakao"
+            },
+            {
+              "id": "2.2.3",
+              "title": "Build password reset flow",
+              "description": "Email verification with Supabase"
+            },
+            {
+              "id": "2.2.4",
+              "title": "Create protected route wrapper component"
+            }
+          ]
+        },
+        {
+          "id": "2.3",
+          "title": "Build news dashboard",
+          "status": "pending",
+          "estimated_hours": 16,
+          "details": [
+            {
+              "id": "2.3.1",
+              "title": "Create news feed component with infinite scroll",
+              "tech": "React Query + Intersection Observer"
+            },
+            {
+              "id": "2.3.2",
+              "title": "Implement impact score visualization",
+              "description": "0.0-1.0 scale with color gradient (green to red)"
+            },
+            {
+              "id": "2.3.3",
+              "title": "Build news filter sidebar",
+              "filters": "Company, Sector, Date range, Impact threshold"
+            },
+            {
+              "id": "2.3.4",
+              "title": "Create article detail modal with AI insights"
+            },
+            {
+              "id": "2.3.5",
+              "title": "Add real-time updates with WebSocket",
+              "tech": "Socket.io or native WebSocket"
+            }
+          ]
+        },
+        {
+          "id": "2.4",
+          "title": "Create company network visualization",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "2.4.1",
+              "title": "Implement force-directed graph",
+              "tech": "D3.js or React Flow"
+            },
+            {
+              "id": "2.4.2",
+              "title": "Add interactive node features",
+              "features": "Click for details, Hover for relationships, Drag to reposition"
+            },
+            {
+              "id": "2.4.3",
+              "title": "Create relationship strength indicators",
+              "description": "Line thickness, color coding, animated connections"
+            },
+            {
+              "id": "2.4.4",
+              "title": "Build company detail sidebar"
+            }
+          ]
+        },
+        {
+          "id": "2.5",
+          "title": "Implement watchlist feature",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "2.5.1",
+              "title": "Create watchlist management UI",
+              "limits": "Free: 3 companies, Premium: 50 companies"
+            },
+            {
+              "id": "2.5.2",
+              "title": "Build real-time alert preferences",
+              "options": "Email, Push notification prep, Impact threshold"
+            },
+            {
+              "id": "2.5.3",
+              "title": "Implement watchlist dashboard widget"
+            },
+            {
+              "id": "2.5.4",
+              "title": "Add quick actions for watchlist items"
+            }
+          ]
+        },
+        {
+          "id": "2.6",
+          "title": "Korean localization",
+          "status": "pending",
+          "estimated_hours": 4,
+          "details": [
+            {
+              "id": "2.6.1",
+              "title": "Set up i18n with next-intl",
+              "languages": ["ko", "en"]
+            },
+            {
+              "id": "2.6.2",
+              "title": "Translate all UI strings",
+              "priority": "Korean first, English secondary"
+            },
+            {
+              "id": "2.6.3",
+              "title": "Add language switcher component"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Backend Development",
+      "status": "in_progress",
+      "priority": "high",
+      "estimated_hours": 80,
+      "dependencies": ["1"],
+      "subtasks": [
+        {
+          "id": "3.1",
+          "title": "Implement news collection service",
+          "status": "pending",
+          "estimated_hours": 16,
+          "details": [
+            {
+              "id": "3.1.1",
+              "title": "Create RSS feed parser",
+              "sources": "Reuters, Bloomberg, TechCrunch, Korean: Yonhap, Chosun Biz"
+            },
+            {
+              "id": "3.1.2",
+              "title": "Implement Google News API integration",
+              "keywords": "autonomous driving, robotics, Korean companies"
+            },
+            {
+              "id": "3.1.3",
+              "title": "Build article deduplication system",
+              "method": "Title similarity + URL matching"
+            },
+            {
+              "id": "3.1.4",
+              "title": "Create news storage pipeline",
+              "batch_size": "100 articles per run"
+            },
+            {
+              "id": "3.1.5",
+              "title": "Implement rate limiting and retry logic"
+            }
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "Integrate OpenAI for analysis",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "3.2.1",
+              "title": "Create OpenAI client wrapper",
+              "models": "GPT-4 for analysis, GPT-3.5 fallback"
+            },
+            {
+              "id": "3.2.2",
+              "title": "Design prompt templates",
+              "prompts": "Company extraction, Relationship mapping, Impact analysis"
+            },
+            {
+              "id": "3.2.3",
+              "title": "Implement response parsing and validation"
+            },
+            {
+              "id": "3.2.4",
+              "title": "Add cost tracking and limits",
+              "budget": "Target <$100/month"
+            }
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "Setup FinBERT sentiment analysis",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "3.3.1",
+              "title": "Deploy FinBERT model",
+              "options": "HuggingFace Inference API or self-hosted"
+            },
+            {
+              "id": "3.3.2",
+              "title": "Create sentiment analysis pipeline",
+              "output": "Positive/Negative/Neutral + confidence score"
+            },
+            {
+              "id": "3.3.3",
+              "title": "Implement Korean text preprocessing",
+              "tools": "KoNLPy for Korean tokenization"
+            },
+            {
+              "id": "3.3.4",
+              "title": "Build result caching system"
+            }
+          ]
+        },
+        {
+          "id": "3.4",
+          "title": "Create impact scoring algorithm",
+          "status": "pending",
+          "estimated_hours": 16,
+          "details": [
+            {
+              "id": "3.4.1",
+              "title": "Design scoring formula",
+              "factors": "Sentiment * Relevance * Source credibility * Recency"
+            },
+            {
+              "id": "3.4.2",
+              "title": "Implement company relevance calculator",
+              "method": "Keyword matching + Semantic similarity"
+            },
+            {
+              "id": "3.4.3",
+              "title": "Create relationship impact propagation",
+              "description": "Impact spreads through company network"
+            },
+            {
+              "id": "3.4.4",
+              "title": "Build score normalization system",
+              "range": "0.0 to 1.0 scale"
+            },
+            {
+              "id": "3.4.5",
+              "title": "Add historical score tracking"
+            }
+          ]
+        },
+        {
+          "id": "3.5",
+          "title": "Implement real-time alerts",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "3.5.1",
+              "title": "Create alert trigger system",
+              "triggers": "Impact > threshold, Multiple articles, Trend changes"
+            },
+            {
+              "id": "3.5.2",
+              "title": "Build notification queue",
+              "tech": "Redis or PostgreSQL LISTEN/NOTIFY"
+            },
+            {
+              "id": "3.5.3",
+              "title": "Implement email notifications",
+              "service": "SendGrid or AWS SES"
+            },
+            {
+              "id": "3.5.4",
+              "title": "Create WebSocket event broadcaster"
+            }
+          ]
+        },
+        {
+          "id": "3.6",
+          "title": "Build subscription management",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "3.6.1",
+              "title": "Implement tier enforcement",
+              "limits": "Free: 3 analyses/day, Premium: unlimited"
+            },
+            {
+              "id": "3.6.2",
+              "title": "Create usage tracking system"
+            },
+            {
+              "id": "3.6.3",
+              "title": "Build subscription API endpoints"
+            },
+            {
+              "id": "3.6.4",
+              "title": "Add payment integration prep",
+              "note": "Stripe/Toss ready but not implemented for MVP"
+            }
+          ]
+        },
+        {
+          "id": "3.7",
+          "title": "Performance optimization",
+          "status": "pending",
+          "estimated_hours": 4,
+          "details": [
+            {
+              "id": "3.7.1",
+              "title": "Implement Redis caching",
+              "cache": "API responses, AI results, Company data"
+            },
+            {
+              "id": "3.7.2",
+              "title": "Add database query optimization",
+              "indexes": "news_articles(published_date), impacts(company_id)"
+            },
+            {
+              "id": "3.7.3",
+              "title": "Create connection pooling"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Data Pipeline",
+      "status": "pending",
+      "priority": "high",
+      "estimated_hours": 40,
+      "dependencies": ["3.1", "3.2", "3.3"],
+      "subtasks": [
+        {
+          "id": "4.1",
+          "title": "Setup RSS feed collectors",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "4.1.1",
+              "title": "Configure feed URLs",
+              "feeds": {
+                "english": ["Reuters Tech", "Bloomberg AI", "TechCrunch"],
+                "korean": ["Yonhap English", "Korea Herald Tech", "Chosun Biz"]
+              }
+            },
+            {
+              "id": "4.1.2",
+              "title": "Create feed parser with error handling"
+            },
+            {
+              "id": "4.1.3",
+              "title": "Implement feed update scheduler",
+              "interval": "Every 5 minutes"
+            },
+            {
+              "id": "4.1.4",
+              "title": "Build feed health monitoring"
+            }
+          ]
+        },
+        {
+          "id": "4.2",
+          "title": "Implement Google News scraper",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "4.2.1",
+              "title": "Create search query builder",
+              "queries": ["현대자동차 자율주행", "Samsung SDI battery", "LG robotics"]
+            },
+            {
+              "id": "4.2.2",
+              "title": "Implement scraper with rate limiting"
+            },
+            {
+              "id": "4.2.3",
+              "title": "Build article content extractor",
+              "tech": "BeautifulSoup + Newspaper3k"
+            },
+            {
+              "id": "4.2.4",
+              "title": "Add language detection",
+              "library": "langdetect"
+            }
+          ]
+        },
+        {
+          "id": "4.3",
+          "title": "Create news processing pipeline",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "4.3.1",
+              "title": "Build processing queue",
+              "stages": "Collect → Clean → Analyze → Score → Store"
+            },
+            {
+              "id": "4.3.2",
+              "title": "Implement text preprocessing",
+              "steps": "Remove HTML, Normalize whitespace, Extract main content"
+            },
+            {
+              "id": "4.3.3",
+              "title": "Create parallel processing workers",
+              "workers": "4 concurrent processes"
+            },
+            {
+              "id": "4.3.4",
+              "title": "Add error recovery and logging"
+            }
+          ]
+        },
+        {
+          "id": "4.4",
+          "title": "Setup batch processing jobs",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "4.4.1",
+              "title": "Create job scheduler",
+              "tech": "APScheduler or Celery Beat"
+            },
+            {
+              "id": "4.4.2",
+              "title": "Implement daily aggregation jobs",
+              "jobs": "Impact summaries, Trend analysis, Report generation"
+            },
+            {
+              "id": "4.4.3",
+              "title": "Build job monitoring dashboard"
+            },
+            {
+              "id": "4.4.4",
+              "title": "Add job failure alerts"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "MVP Features",
+      "status": "pending",
+      "priority": "high",
+      "estimated_hours": 32,
+      "dependencies": ["2", "3"],
+      "subtasks": [
+        {
+          "id": "5.1",
+          "title": "Load 20 initial companies",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "5.1.1",
+              "title": "Create company data fixtures",
+              "companies": {
+                "autonomous_driving": [
+                  "현대자동차 (Hyundai Motor)",
+                  "기아 (Kia)",
+                  "카카오모빌리티 (Kakao Mobility)",
+                  "네이버랩스 (Naver Labs)",
+                  "42dot",
+                  "소프트뱅크 (SoftBank)",
+                  "라이드플럭스 (RideFlux)",
+                  "오토노머스에이투지 (Autonomous a2z)",
+                  "서울로보틱스 (Seoul Robotics)",
+                  "뷰런테크놀로지 (Vueron Technology)"
+                ],
+                "robotics": [
+                  "두산로보틱스 (Doosan Robotics)",
+                  "레인보우로보틱스 (Rainbow Robotics)",
+                  "로보티즈 (Robotis)",
+                  "유진로봇 (Yujin Robot)",
+                  "한화로보틱스 (Hanwha Robotics)",
+                  "LG전자 (LG Electronics)",
+                  "삼성전자 (Samsung Electronics)",
+                  "배달의민족 (Baemin) - Woowa Brothers",
+                  "트위니 (Twinny)",
+                  "베어로보틱스 (Bear Robotics)"
+                ]
+              }
+            },
+            {
+              "id": "5.1.2",
+              "title": "Add company metadata",
+              "fields": "Logo URL, Description, Market cap, Founded year"
+            },
+            {
+              "id": "5.1.3",
+              "title": "Create data migration script"
+            },
+            {
+              "id": "5.1.4",
+              "title": "Verify data integrity"
+            }
+          ]
+        },
+        {
+          "id": "5.2",
+          "title": "Create 50 company relationships",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "5.2.1",
+              "title": "Map supplier relationships",
+              "examples": "Samsung SDI → Hyundai (battery supplier)"
+            },
+            {
+              "id": "5.2.2",
+              "title": "Identify partnership connections",
+              "examples": "Kakao Mobility ↔ Hyundai (robotaxi partnership)"
+            },
+            {
+              "id": "5.2.3",
+              "title": "Add competitor relationships",
+              "examples": "Hyundai ↔ Kia (sister companies)"
+            },
+            {
+              "id": "5.2.4",
+              "title": "Create relationship strength scores",
+              "scale": "1-5 (weak to strong)"
+            }
+          ]
+        },
+        {
+          "id": "5.3",
+          "title": "Implement free tier limits",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "5.3.1",
+              "title": "Create usage tracking middleware"
+            },
+            {
+              "id": "5.3.2",
+              "title": "Implement daily limit enforcement",
+              "limit": "3 AI analyses per day"
+            },
+            {
+              "id": "5.3.3",
+              "title": "Add watchlist size restrictions",
+              "limit": "3 companies for free users"
+            },
+            {
+              "id": "5.3.4",
+              "title": "Create upgrade prompts UI"
+            }
+          ]
+        },
+        {
+          "id": "5.4",
+          "title": "Add Korean language support",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "5.4.1",
+              "title": "Implement Korean news processing",
+              "tools": "KoNLPy, Mecab tokenizer"
+            },
+            {
+              "id": "5.4.2",
+              "title": "Add bilingual company name support"
+            },
+            {
+              "id": "5.4.3",
+              "title": "Create Korean UI translations"
+            },
+            {
+              "id": "5.4.4",
+              "title": "Test with Korean news sources"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Testing & QA",
+      "status": "pending",
+      "priority": "medium",
+      "estimated_hours": 40,
+      "dependencies": ["5"],
+      "subtasks": [
+        {
+          "id": "6.1",
+          "title": "Write unit tests for API",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "6.1.1",
+              "title": "Test authentication endpoints",
+              "coverage": "Login, Signup, Token refresh"
+            },
+            {
+              "id": "6.1.2",
+              "title": "Test company CRUD operations"
+            },
+            {
+              "id": "6.1.3",
+              "title": "Test news processing pipeline",
+              "scenarios": "Valid articles, Duplicates, Errors"
+            },
+            {
+              "id": "6.1.4",
+              "title": "Test impact scoring algorithm",
+              "cases": "Edge cases, Score ranges, Propagation"
+            }
+          ]
+        },
+        {
+          "id": "6.2",
+          "title": "Write frontend component tests",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "6.2.1",
+              "title": "Test dashboard components",
+              "framework": "Jest + React Testing Library"
+            },
+            {
+              "id": "6.2.2",
+              "title": "Test form validations"
+            },
+            {
+              "id": "6.2.3",
+              "title": "Test real-time updates"
+            },
+            {
+              "id": "6.2.4",
+              "title": "Test responsive layouts"
+            }
+          ]
+        },
+        {
+          "id": "6.3",
+          "title": "Performance testing",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "6.3.1",
+              "title": "API load testing",
+              "tool": "Locust or K6",
+              "target": "1000 concurrent users"
+            },
+            {
+              "id": "6.3.2",
+              "title": "Database query optimization",
+              "goal": "All queries <100ms"
+            },
+            {
+              "id": "6.3.3",
+              "title": "Frontend performance audit",
+              "metrics": "Lighthouse score >90"
+            },
+            {
+              "id": "6.3.4",
+              "title": "News processing throughput test",
+              "target": "3000 articles/day"
+            }
+          ]
+        },
+        {
+          "id": "6.4",
+          "title": "AI accuracy validation",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "6.4.1",
+              "title": "Validate sentiment analysis",
+              "target": ">85% accuracy"
+            },
+            {
+              "id": "6.4.2",
+              "title": "Test entity extraction",
+              "target": ">95% company name recognition"
+            },
+            {
+              "id": "6.4.3",
+              "title": "Verify impact score consistency"
+            },
+            {
+              "id": "6.4.4",
+              "title": "Test Korean language processing",
+              "samples": "100 Korean articles"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Competition Preparation",
+      "status": "pending",
+      "priority": "high",
+      "estimated_hours": 40,
+      "dependencies": ["6"],
+      "subtasks": [
+        {
+          "id": "7.1",
+          "title": "Create demo presentation",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "7.1.1",
+              "title": "Design presentation deck",
+              "slides": "10-15 slides",
+              "structure": "Problem → Solution → Demo → Market → Team"
+            },
+            {
+              "id": "7.1.2",
+              "title": "Create product demo video",
+              "duration": "3-5 minutes",
+              "content": "Live analysis of breaking news"
+            },
+            {
+              "id": "7.1.3",
+              "title": "Prepare pitch script",
+              "languages": "Korean primary, English backup"
+            },
+            {
+              "id": "7.1.4",
+              "title": "Design visual assets",
+              "assets": "Logo, Screenshots, Diagrams"
+            }
+          ]
+        },
+        {
+          "id": "7.2",
+          "title": "Prepare sample analysis cases",
+          "status": "pending",
+          "estimated_hours": 12,
+          "details": [
+            {
+              "id": "7.2.1",
+              "title": "Tesla FSD Korea launch impact",
+              "affected": "Hyundai, Kia, Autonomous startups"
+            },
+            {
+              "id": "7.2.2",
+              "title": "LG-GM battery partnership news",
+              "affected": "LG Energy, Samsung SDI, SK Innovation"
+            },
+            {
+              "id": "7.2.3",
+              "title": "Boston Dynamics acquisition rumors",
+              "affected": "Korean robotics companies"
+            },
+            {
+              "id": "7.2.4",
+              "title": "Government robotics subsidy announcement",
+              "affected": "All Korean robotics companies"
+            }
+          ]
+        },
+        {
+          "id": "7.3",
+          "title": "Document unique value proposition",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "7.3.1",
+              "title": "Korean market focus differentiator",
+              "points": "Local language, Local companies, Local context"
+            },
+            {
+              "id": "7.3.2",
+              "title": "AI-first approach benefits",
+              "points": "Real-time, Comprehensive, Accurate"
+            },
+            {
+              "id": "7.3.3",
+              "title": "Network analysis advantages",
+              "points": "Hidden connections, Ripple effects"
+            },
+            {
+              "id": "7.3.4",
+              "title": "Affordable pricing strategy",
+              "comparison": "Bloomberg: $24K/year vs FluxNews: $120/year"
+            }
+          ]
+        },
+        {
+          "id": "7.4",
+          "title": "Polish UI/UX for demo",
+          "status": "pending",
+          "estimated_hours": 8,
+          "details": [
+            {
+              "id": "7.4.1",
+              "title": "Add smooth animations",
+              "libraries": "Framer Motion, React Spring"
+            },
+            {
+              "id": "7.4.2",
+              "title": "Create demo data set",
+              "content": "50 curated articles with high impact"
+            },
+            {
+              "id": "7.4.3",
+              "title": "Optimize loading states"
+            },
+            {
+              "id": "7.4.4",
+              "title": "Add success notifications",
+              "library": "React Hot Toast"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "week": 1,
+      "goals": ["Complete setup", "Start core backend services", "Basic UI components"]
+    },
+    {
+      "week": 2,
+      "goals": ["News pipeline operational", "AI integration complete", "Dashboard functional"]
+    },
+    {
+      "week": 3,
+      "goals": ["All MVP features", "Load initial data", "Integration testing"]
+    },
+    {
+      "week": 4,
+      "goals": ["Performance optimization", "Demo preparation", "Final polish"]
+    }
+  ],
+  "risks": [
+    {
+      "risk": "OpenAI API costs exceed budget",
+      "mitigation": "Implement aggressive caching, Use GPT-3.5 for non-critical tasks"
+    },
+    {
+      "risk": "News processing performance issues",
+      "mitigation": "Queue-based architecture, Horizontal scaling ready"
+    },
+    {
+      "risk": "Korean language processing accuracy",
+      "mitigation": "Hybrid approach: Korean-specific models + translation"
+    }
+  ]
+}

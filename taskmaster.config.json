@@ -1,0 +1,30 @@
+{
+  "project": {
+    "name": "FluxNews",
+    "description": "AI-powered real-time global news impact analysis platform for Korean investors",
+    "version": "0.1.0",
+    "author": "FluxNews Team",
+    "repository": "https://github.com/fluxnews/fluxnews"
+  },
+  "paths": {
+    "tasks": ".taskmaster/tasks",
+    "templates": ".taskmaster/templates",
+    "reports": ".taskmaster/reports"
+  },
+  "settings": {
+    "autoBackup": true,
+    "backupInterval": 3600,
+    "maxBackups": 10,
+    "enableAnalytics": true
+  },
+  "integrations": {
+    "github": {
+      "enabled": false,
+      "autoCreateIssues": false
+    },
+    "slack": {
+      "enabled": false,
+      "webhookUrl": ""
+    }
+  }
+}

@@ -1,0 +1,365 @@
+# Flux AI 프로젝트 컨텍스트
+
+## 📋 **프로젝트 개요**
+- **제품명**: Flux AI
+- **도메인**: flux.ai.kr
+- **목표**: 2025 금융 AI 챌린지 참가 + 실제 서비스 구현
+- **컨셉**: AI 기반 실시간 글로벌 뉴스 시장 영향도 분석 플랫폼
+
+## 🎯 **핵심 가치 제안**
+```
+문제: 개인투자자가 해외 뉴스가 국내 기업에 미치는 영향 파악 어려움
+해결: AI 기반 실시간 연관관계 분석 + 영향도 예측
+타겟: 모빌리티/로봇 관심 개인투자자 (20-40대)
+차별화: AI 전문성 강조 + 실시간 흐름 분석
+```
+
+## 🛠 **기술 스택**
+```
+Frontend: Next.js + Tailwind CSS
+Backend: FastAPI + Python
+Database: PostgreSQL (초기) → Neo4j 하이브리드 (3-6개월)
+AI: OpenAI API + HuggingFace 무료 모델
+인프라: Vercel (Frontend) + Railway (Backend + DB)
+예산: 월 10만원 이내
+```
+
+## 📊 **데이터 소스 (일일 3,000건)**
+```
+뉴스: RSS 피드 (무제한) + Google News RSS (~1,000건)
+금융: 한국거래소 API (무제한) + DART API (10,000건)
+소셜: Reddit API (1,000건)
+```
+
+## 🗓 **개발 로드맵**
+```
+Month 0-3: PostgreSQL MVP
+Month 3-6: + Neo4j AuraDB Free (하이브리드)
+Month 6+: Neo4j Community Edition 확장
+
+대회 일정:
+Week 1: PRD 완성
+Week 2-3: MVP 프로토타입 (20개 기업, 50개 관계)
+Week 4: 데모 준비 + 제출
+```
+
+## 🎨 **브랜딩**
+```
+컬러: Electric Blue (#007FFF) + Neon Purple (#7B68EE)
+태그라인: "Feel the flux of global markets"
+한국어: "AI가 분석하는 글로벌 시장의 흐름"
+로고: ⚡ Flux AI
+```
+
+---
+
+# Flux AI PRD (핵심 요약)
+
+## 📱 **MVP 기능 (Month 0-3)**
+
+### **1. AI 뉴스 분석 엔진**
+```python
+# 핵심 플로우
+1. 글로벌 뉴스 수집 (RSS + Google News, 일 3,000건)
+2. OpenAI + HuggingFace AI 분석
+   - 감정 분석 (-1.0 ~ 1.0)
+   - 기업 추출 및 연관관계 매핑
+   - 영향도 점수 계산 (0.0 ~ 1.0)
+3. 실시간 알림 발송
+4. 대시보드 업데이트
+```
+
+### **2. 기업 관계 네트워크**
+```
+초기 범위: 80개 기업
+- 자율주행 (50개): 현대차, Tesla, 삼성SDI, LG에너지솔루션
+- 로봇 (30개): 두산로보틱스, 삼성전자, 레인보우로보틱스
+
+관계 타입:
+- SUPPLIER (공급업체)
+- CUSTOMER (고객사)  
+- COMPETITOR (경쟁사)
+- PARTNER (파트너)
+- SUBSIDIARY (자회사)
+```
+
+### **3. 개인화 대시보드**
+```
+무료 티어: 일 3개 뉴스, 관심기업 3개
+프리미엄 ($9.99/월): 무제한 + 실시간 알림 + 고급 분석
+```
+
+## 🗄 **데이터베이스 설계**
+
+### **PostgreSQL 스키마 (Neo4j 준비)**
+```sql
+-- 기업 정보
+CREATE TABLE companies (
+    id SERIAL PRIMARY KEY,
+    symbol VARCHAR(10) UNIQUE,
+    name VARCHAR(100),
+    country VARCHAR(2),
+    sector VARCHAR(50),
+    neo4j_node_id BIGINT,  -- 하이브리드용
+    sync_status VARCHAR(20) DEFAULT 'pending',
+    properties JSONB,  -- Neo4j 호환
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 기업 관계
+CREATE TABLE company_relationships (
+    id SERIAL PRIMARY KEY,
+    from_company_id INTEGER REFERENCES companies(id),
+    to_company_id INTEGER REFERENCES companies(id),
+    relationship_type VARCHAR(30),
+    strength DECIMAL(3,2),  -- 관계 강도 0.0~1.0
+    confidence DECIMAL(3,2),  -- AI 신뢰도
+    neo4j_rel_id BIGINT,
+    sync_status VARCHAR(20) DEFAULT 'pending',
+    properties JSONB,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 뉴스 분석
+CREATE TABLE news_articles (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(500),
+    summary TEXT,
+    url VARCHAR(1000),
+    source VARCHAR(100),
+    sentiment_score DECIMAL(3,2),  -- AI 감정 분석
+    published_at TIMESTAMP,
+    analyzed_at TIMESTAMP
+);
+
+-- 뉴스-기업 영향
+CREATE TABLE news_company_impacts (
+    id SERIAL PRIMARY KEY,
+    news_id INTEGER REFERENCES news_articles(id),
+    company_id INTEGER REFERENCES companies(id),
+    impact_score DECIMAL(3,2),  -- -1.0~1.0 (부정~긍정)
+    impact_magnitude DECIMAL(3,2),  -- 0.0~1.0 (영향 크기)
+    reasoning TEXT,  -- AI 분석 근거
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- 사용자 & 관심 기업
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE,
+    subscription_tier VARCHAR(20) DEFAULT 'free',
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE user_watchlists (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    company_id INTEGER REFERENCES companies(id),
+    alert_threshold DECIMAL(3,2) DEFAULT 0.7,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+```
+
+## 🤖 **AI 분석 파이프라인**
+
+### **뉴스 분석 엔진**
+```python
+class FluxAIAnalyzer:
+    def __init__(self):
+        self.openai_client = OpenAI()
+        self.sentiment_model = pipeline("sentiment-analysis", 
+                                       model="yiyanghkust/finbert-tone")
+    
+    async def analyze_news(self, news_item):
+        # 1. 감정 분석 (무료 모델)
+        sentiment = self.sentiment_model(news_item.content)
+        
+        # 2. 기업 추출 + 연관관계 (OpenAI)
+        companies = await self.extract_companies_with_relations(news_item)
+        
+        # 3. 영향도 계산 (자체 알고리즘)
+        impact_scores = self.calculate_impact_scores(companies, sentiment)
+        
+        return {
+            'sentiment': sentiment,
+            'companies': companies,
+            'impact_scores': impact_scores,
+            'reasoning': await self.generate_reasoning(news_item, companies)
+        }
+    
+    async def extract_companies_with_relations(self, news_item):
+        prompt = f"""
+        다음 뉴스에서 언급된 기업들과 한국 기업들과의 연관관계를 AI가 분석해주세요.
+
+        뉴스: {news_item.title} - {news_item.summary}
+
+        JSON 형식으로 출력:
+        {{
+            "mentioned_companies": ["Tesla", "BYD"],
+            "related_korean_companies": [
+                {{"name": "삼성SDI", "relation": "supplier", "impact": 0.8, "reasoning": "배터리 공급업체"}},
+                {{"name": "LG에너지솔루션", "relation": "competitor", "impact": 0.6, "reasoning": "배터리 경쟁사"}}
+            ]
+        }}
+        """
+        # OpenAI API 호출
+        response = await self.openai_client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.1
+        )
+        return json.loads(response.choices[0].message.content)
+```
+
+## 🔄 **하이브리드 시스템 (Month 3-6)**
+
+### **PostgreSQL + Neo4j 이중 저장**
+```python
+class HybridFluxManager:
+    def __init__(self):
+        self.postgres = PostgreSQLConnection()
+        self.neo4j = Neo4jAuraFreeConnection()  # 50K 노드 무료
+        
+    async def store_analysis_result(self, analysis):
+        # 1. PostgreSQL 안전 저장
+        pg_id = await self.postgres.save_analysis(analysis)
+        
+        # 2. Neo4j 용량 체크 후 동기화
+        if await self.neo4j.has_capacity():
+            neo4j_id = await self.neo4j.sync_analysis(analysis)
+            await self.postgres.update_neo4j_mapping(pg_id, neo4j_id)
+    
+    async def get_complex_relationships(self, company_symbol, depth=3):
+        # 복잡한 그래프 쿼리는 Neo4j 사용
+        if self.neo4j.is_available():
+            return await self.neo4j.get_multi_hop_relations(company_symbol, depth)
+        else:
+            return await self.postgres.get_relations(company_symbol, depth)
+```
+
+### **Neo4j 스키마 (하이브리드 시기)**
+```cypher
+// 노드 생성
+CREATE (tesla:Company {
+    symbol: "TSLA",
+    name: "Tesla",
+    country: "US",
+    sector: "Electric Vehicles"
+})
+
+CREATE (samsung_sdi:Company {
+    symbol: "006400", 
+    name: "삼성SDI",
+    country: "KR",
+    sector: "Battery"
+})
+
+// 관계 생성
+CREATE (tesla)-[:SUPPLIER_OF {
+    strength: 0.8,
+    confidence: 0.9,
+    source: "ai_analysis",
+    created_at: datetime()
+}]->(samsung_sdi)
+
+// 복잡한 쿼리 예시
+MATCH (news:News)-[:MENTIONS]->(company:Company)
+MATCH path = (company)-[:SUPPLIER_OF|CUSTOMER_OF*1..3]-(affected:Company)
+WHERE affected.country = 'KR'
+RETURN affected.name, length(path), 
+       reduce(impact = 1.0, rel in relationships(path) | impact * rel.strength) as total_impact
+ORDER BY total_impact DESC
+```
+
+## 📱 **UI/UX 설계**
+
+### **메인 대시보드**
+```
+┌─────────────────────────────────────────────────────┐
+│ ⚡ Flux AI                      [⚙️설정] [👤프로필] │
+│ AI가 분석하는 글로벌 시장의 흐름                      │
+├─────────────────────────────────────────────────────┤
+│ 🤖 오늘의 AI 분석 결과                               │
+│                                                     │
+│ ┌─[🔴 AI 알림]─────────────────────────────────────┐ │
+│ │ Tesla Q4 실적 발표 - AI 신뢰도: 92%             │ │
+│ │ 📊 AI 예측 영향: 삼성SDI ↗️+15%, LG에너지 ↗️+12% │ │
+│ │ 🤖 AI 근거: 배터리 공급량 증가로 매출 상승 예상  │ │
+│ │ ⏰ 2시간 전 분석 | 📈 영향도 점수: 0.85          │ │
+│ └─────────────────────────────────────────────────┘ │
+│                                                     │
+│ 📌 AI가 추천하는 관심 기업                           │
+│ ┌─────┬─────────┬────────┬──────────────────────┐   │
+│ │기업명│ AI예측점수│ 실시간변화│ AI 분석 근거        │   │
+│ ├─────┼─────────┼────────┼──────────────────────┤   │
+│ │삼성SDI│ 0.82 ↗️  │📈+2.3% │Tesla 공급 확대 예상 │   │
+│ │LG에너지│ 0.75 ↗️ │📈+1.8% │북미 시장 수혜      │   │
+│ └─────┴─────────┴────────┴──────────────────────┘   │
+└─────────────────────────────────────────────────────┘
+```
+
+## 💰 **수익 모델**
+
+### **구독 티어**
+```
+🆓 FREE TIER ($0/월):
+- 일 3개 AI 분석 결과
+- 관심 기업 3개
+- 기본 연관관계 (1단계)
+- 주간 AI 리포트
+
+💎 PREMIUM TIER ($9.99/월):
+- 무제한 AI 분석
+- 관심 기업 50개  
+- 실시간 AI 알림
+- 다단계 연관관계 (3단계)
+- AI 개인화 추천
+- 과거 데이터 1년 조회
+
+목표: Month 12에 1,200명 유료 고객 → 월 $12K 매출
+```
+
+## 📈 **성공 지표**
+
+### **비즈니스 KPI**
+```
+Month 3: MAU 1,000명, 유료 50명 (5% 전환)
+Month 6: MAU 5,000명, 유료 500명 (10% 전환)
+Month 12: MAU 15,000명, 유료 1,500명 (10% 전환)
+```
+
+### **AI 성능 KPI**
+```
+AI 분석 정확도: >85%
+감정 분석 정확도: >90%
+영향도 예측 정확도: 실제 주가 변동과 70% 상관관계
+API 응답 시간: <500ms
+```
+
+## 🏆 **대회 전략**
+
+### **AI 차별화 포인트**
+```
+1. "진짜 AI가 분석하는 투자 인사이트"
+2. "PostgreSQL + Neo4j 하이브리드 AI 아키텍처"  
+3. "개인투자자를 위한 AI 민주화"
+4. "실시간 학습하는 지능형 시스템"
+```
+
+### **4주 실행 계획**
+```
+Week 1: PRD 완성 + AI 모델 설계
+Week 2-3: AI 분석 엔진 + 프로토타입 (20개 기업)
+Week 4: AI 데모 준비 + 제출
+```
+
+---
+
+**핵심 포인트**:
+- AI 전문성을 강조한 차별화된 브랜딩
+- 무료 데이터로 AI 기반 MVP 구현 가능
+- 단계적 Neo4j 전환으로 리스크 최소화
+- 명확한 AI 가치 제안 (정확도, 실시간성, 개인화)
+- 한국 시장 특화 + 글로벌 확장 가능성
+
+**Flux AI - 개인투자자를 위한 AI 시장 인텔리전스 플랫폼** ⚡🤖

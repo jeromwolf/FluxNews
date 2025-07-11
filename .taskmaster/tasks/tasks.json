@@ -1,0 +1,1021 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "프로젝트 설정",
+        "status": "완료",
+        "priority": "높음",
+        "estimated_hours": 8,
+        "subtasks": [
+          {
+            "id": "1.1",
+            "title": "프로젝트 구조 초기화",
+            "status": "완료",
+            "estimated_hours": 2,
+            "details": [
+              {
+                "id": "1.1.1",
+                "title": "frontend/backend 폴더로 모노레포 구조 생성",
+                "status": "완료"
+              },
+              {
+                "id": "1.1.2",
+                "title": "Git 저장소 및 .gitignore 설정",
+                "status": "완료"
+              },
+              {
+                "id": "1.1.3",
+                "title": "환경 변수 템플릿 생성",
+                "status": "완료"
+              }
+            ]
+          },
+          {
+            "id": "1.2",
+            "title": "TypeScript로 Next.js 프론트엔드 설정",
+            "status": "완료",
+            "estimated_hours": 2,
+            "details": [
+              {
+                "id": "1.2.1",
+                "title": "App Router로 Next.js 14 초기화",
+                "status": "완료"
+              },
+              {
+                "id": "1.2.2",
+                "title": "TypeScript 및 ESLint 구성",
+                "status": "완료"
+              },
+              {
+                "id": "1.2.3",
+                "title": "커스텀 테마 색상으로 Tailwind CSS 설정",
+                "status": "완료"
+              }
+            ]
+          },
+          {
+            "id": "1.3",
+            "title": "FastAPI 백엔드 설정",
+            "status": "완료",
+            "estimated_hours": 2,
+            "details": [
+              {
+                "id": "1.3.1",
+                "title": "라우터를 포함한 FastAPI 프로젝트 구조 생성",
+                "status": "완료"
+              },
+              {
+                "id": "1.3.2",
+                "title": "Pydantic 모델 및 설정 구성",
+                "status": "완료"
+              },
+              {
+                "id": "1.3.3",
+                "title": "CORS 및 미들웨어 설정",
+                "status": "완료"
+              }
+            ]
+          },
+          {
+            "id": "1.4",
+            "title": "Supabase 통합 구성",
+            "status": "완료",
+            "estimated_hours": 2,
+            "details": [
+              {
+                "id": "1.4.1",
+                "title": "Supabase 프로젝트 생성 및 인증 구성",
+                "status": "완료"
+              },
+              {
+                "id": "1.4.2",
+                "title": "마이그레이션으로 데이터베이스 스키마 설정",
+                "status": "완료"
+              },
+              {
+                "id": "1.4.3",
+                "title": "행 수준 보안 정책 구성",
+                "status": "완료"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "2",
+        "title": "프론트엔드 개발",
+        "status": "진행중",
+        "priority": "높음",
+        "estimated_hours": 60,
+        "dependencies": ["1"],
+        "subtasks": [
+          {
+            "id": "2.1",
+            "title": "랜딩 페이지 생성",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "2.1.1",
+                "title": "가치 제안이 포함된 히어로 섹션 디자인",
+                "description": "AI가 글로벌 뉴스를 실시간 분석해 한국 모빌리티/로봇 기업 투자 인사이트 제공"
+              },
+              {
+                "id": "2.1.2",
+                "title": "기능 쇼케이스 섹션 생성",
+                "description": "실시간 분석, 기업 네트워크, 영향도 점수, 한국어 지원"
+              },
+              {
+                "id": "2.1.3",
+                "title": "가격 플랜 컴포넌트 구현",
+                "description": "무료 vs 프리미엄 ($9.99/월) 비교"
+              },
+              {
+                "id": "2.1.4",
+                "title": "애니메이션이 포함된 CTA 버튼 추가"
+              }
+            ]
+          },
+          {
+            "id": "2.2",
+            "title": "인증 UI 구현",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "2.2.1",
+                "title": "유효성 검사가 포함된 로그인/회원가입 폼 생성",
+                "tech": "React Hook Form + Zod"
+              },
+              {
+                "id": "2.2.2",
+                "title": "OAuth 제공자 구현",
+                "description": "Google, GitHub, Kakao 준비"
+              },
+              {
+                "id": "2.2.3",
+                "title": "비밀번호 재설정 플로우 구축",
+                "description": "Supabase로 이메일 인증"
+              },
+              {
+                "id": "2.2.4",
+                "title": "보호된 라우트 래퍼 컴포넌트 생성"
+              }
+            ]
+          },
+          {
+            "id": "2.3",
+            "title": "뉴스 대시보드 구축",
+            "status": "대기",
+            "estimated_hours": 16,
+            "details": [
+              {
+                "id": "2.3.1",
+                "title": "무한 스크롤이 포함된 뉴스 피드 컴포넌트 생성",
+                "tech": "React Query + Intersection Observer"
+              },
+              {
+                "id": "2.3.2",
+                "title": "영향도 점수 시각화 구현",
+                "description": "0.0-1.0 스케일, 색상 그라데이션 (녹색에서 빨간색)"
+              },
+              {
+                "id": "2.3.3",
+                "title": "뉴스 필터 사이드바 구축",
+                "filters": "기업, 섹터, 날짜 범위, 영향도 임계값"
+              },
+              {
+                "id": "2.3.4",
+                "title": "AI 인사이트가 포함된 기사 상세 모달 생성"
+              },
+              {
+                "id": "2.3.5",
+                "title": "WebSocket으로 실시간 업데이트 추가",
+                "tech": "Socket.io 또는 네이티브 WebSocket"
+              }
+            ]
+          },
+          {
+            "id": "2.4",
+            "title": "기업 네트워크 시각화 생성",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "2.4.1",
+                "title": "포스 디렉티드 그래프 구현",
+                "tech": "D3.js 또는 React Flow"
+              },
+              {
+                "id": "2.4.2",
+                "title": "대화형 노드 기능 추가",
+                "features": "클릭으로 상세 정보, 호버로 관계 표시, 드래그로 위치 조정"
+              },
+              {
+                "id": "2.4.3",
+                "title": "관계 강도 인디케이터 생성",
+                "description": "선 두께, 색상 코딩, 애니메이션 연결"
+              },
+              {
+                "id": "2.4.4",
+                "title": "기업 상세 사이드바 구축"
+              }
+            ]
+          },
+          {
+            "id": "2.5",
+            "title": "관심 목록 기능 구현",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "2.5.1",
+                "title": "관심 목록 관리 UI 생성",
+                "limits": "무료: 3개 기업, 프리미엄: 50개 기업"
+              },
+              {
+                "id": "2.5.2",
+                "title": "실시간 알림 설정 구축",
+                "options": "이메일, 푸시 알림 준비, 영향도 임계값"
+              },
+              {
+                "id": "2.5.3",
+                "title": "관심 목록 대시보드 위젯 구현"
+              },
+              {
+                "id": "2.5.4",
+                "title": "관심 목록 항목에 대한 빠른 작업 추가"
+              }
+            ]
+          },
+          {
+            "id": "2.6",
+            "title": "한국어 현지화",
+            "status": "대기",
+            "estimated_hours": 4,
+            "details": [
+              {
+                "id": "2.6.1",
+                "title": "next-intl로 i18n 설정",
+                "languages": ["ko", "en"]
+              },
+              {
+                "id": "2.6.2",
+                "title": "모든 UI 문자열 번역",
+                "priority": "한국어 우선, 영어 보조"
+              },
+              {
+                "id": "2.6.3",
+                "title": "언어 전환 컴포넌트 추가"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "3",
+        "title": "백엔드 개발",
+        "status": "진행중",
+        "priority": "높음",
+        "estimated_hours": 80,
+        "dependencies": ["1"],
+        "subtasks": [
+          {
+            "id": "3.1",
+            "title": "뉴스 수집 서비스 구현",
+            "status": "대기",
+            "estimated_hours": 16,
+            "details": [
+              {
+                "id": "3.1.1",
+                "title": "RSS 피드 파서 생성",
+                "sources": "Reuters, Bloomberg, TechCrunch, 한국: 연합뉴스, 조선비즈"
+              },
+              {
+                "id": "3.1.2",
+                "title": "Google News API 통합 구현",
+                "keywords": "자율주행, 로보틱스, 한국 기업"
+              },
+              {
+                "id": "3.1.3",
+                "title": "기사 중복 제거 시스템 구축",
+                "method": "제목 유사성 + URL 매칭"
+              },
+              {
+                "id": "3.1.4",
+                "title": "뉴스 저장 파이프라인 생성",
+                "batch_size": "실행당 100개 기사"
+              },
+              {
+                "id": "3.1.5",
+                "title": "속도 제한 및 재시도 로직 구현"
+              }
+            ]
+          },
+          {
+            "id": "3.2",
+            "title": "분석을 위한 OpenAI 통합",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "3.2.1",
+                "title": "OpenAI 클라이언트 래퍼 생성",
+                "models": "분석용 GPT-4, 폴백용 GPT-3.5"
+              },
+              {
+                "id": "3.2.2",
+                "title": "프롬프트 템플릿 설계",
+                "prompts": "기업 추출, 관계 매핑, 영향 분석"
+              },
+              {
+                "id": "3.2.3",
+                "title": "응답 파싱 및 검증 구현"
+              },
+              {
+                "id": "3.2.4",
+                "title": "비용 추적 및 제한 추가",
+                "budget": "목표 월 $100 미만"
+              }
+            ]
+          },
+          {
+            "id": "3.3",
+            "title": "FinBERT 감정 분석 설정",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "3.3.1",
+                "title": "FinBERT 모델 배포",
+                "options": "HuggingFace Inference API 또는 자체 호스팅"
+              },
+              {
+                "id": "3.3.2",
+                "title": "감정 분석 파이프라인 생성",
+                "output": "긍정/부정/중립 + 신뢰도 점수"
+              },
+              {
+                "id": "3.3.3",
+                "title": "한국어 텍스트 전처리 구현",
+                "tools": "한국어 토큰화를 위한 KoNLPy"
+              },
+              {
+                "id": "3.3.4",
+                "title": "결과 캐싱 시스템 구축"
+              }
+            ]
+          },
+          {
+            "id": "3.4",
+            "title": "영향도 점수 알고리즘 생성",
+            "status": "대기",
+            "estimated_hours": 16,
+            "details": [
+              {
+                "id": "3.4.1",
+                "title": "점수 공식 설계",
+                "factors": "감정 * 관련성 * 소스 신뢰도 * 최신성"
+              },
+              {
+                "id": "3.4.2",
+                "title": "기업 관련성 계산기 구현",
+                "method": "키워드 매칭 + 의미 유사성"
+              },
+              {
+                "id": "3.4.3",
+                "title": "관계 영향 전파 생성",
+                "description": "기업 네트워크를 통해 영향 확산"
+              },
+              {
+                "id": "3.4.4",
+                "title": "점수 정규화 시스템 구축",
+                "range": "0.0에서 1.0 스케일"
+              },
+              {
+                "id": "3.4.5",
+                "title": "과거 점수 추적 추가"
+              }
+            ]
+          },
+          {
+            "id": "3.5",
+            "title": "실시간 알림 구현",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "3.5.1",
+                "title": "알림 트리거 시스템 생성",
+                "triggers": "영향도 > 임계값, 다중 기사, 트렌드 변화"
+              },
+              {
+                "id": "3.5.2",
+                "title": "알림 큐 구축",
+                "tech": "Redis 또는 PostgreSQL LISTEN/NOTIFY"
+              },
+              {
+                "id": "3.5.3",
+                "title": "이메일 알림 구현",
+                "service": "SendGrid 또는 AWS SES"
+              },
+              {
+                "id": "3.5.4",
+                "title": "WebSocket 이벤트 브로드캐스터 생성"
+              }
+            ]
+          },
+          {
+            "id": "3.6",
+            "title": "구독 관리 구축",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "3.6.1",
+                "title": "티어 제한 구현",
+                "limits": "무료: 일 3회 분석, 프리미엄: 무제한"
+              },
+              {
+                "id": "3.6.2",
+                "title": "사용량 추적 시스템 생성"
+              },
+              {
+                "id": "3.6.3",
+                "title": "구독 API 엔드포인트 구축"
+              },
+              {
+                "id": "3.6.4",
+                "title": "결제 통합 준비 추가",
+                "note": "MVP에서는 Stripe/토스 준비만, 구현은 안 함"
+              }
+            ]
+          },
+          {
+            "id": "3.7",
+            "title": "성능 최적화",
+            "status": "대기",
+            "estimated_hours": 4,
+            "details": [
+              {
+                "id": "3.7.1",
+                "title": "Redis 캐싱 구현",
+                "cache": "API 응답, AI 결과, 기업 데이터"
+              },
+              {
+                "id": "3.7.2",
+                "title": "데이터베이스 쿼리 최적화 추가",
+                "indexes": "news_articles(published_date), impacts(company_id)"
+              },
+              {
+                "id": "3.7.3",
+                "title": "연결 풀링 생성"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "title": "데이터 파이프라인",
+        "status": "대기",
+        "priority": "높음",
+        "estimated_hours": 40,
+        "dependencies": ["3.1", "3.2", "3.3"],
+        "subtasks": [
+          {
+            "id": "4.1",
+            "title": "RSS 피드 수집기 설정",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "4.1.1",
+                "title": "피드 URL 구성",
+                "feeds": {
+                  "영어": ["Reuters Tech", "Bloomberg AI", "TechCrunch"],
+                  "한국어": ["연합뉴스 영문", "Korea Herald Tech", "조선비즈"]
+                }
+              },
+              {
+                "id": "4.1.2",
+                "title": "오류 처리가 포함된 피드 파서 생성"
+              },
+              {
+                "id": "4.1.3",
+                "title": "피드 업데이트 스케줄러 구현",
+                "interval": "5분마다"
+              },
+              {
+                "id": "4.1.4",
+                "title": "피드 상태 모니터링 구축"
+              }
+            ]
+          },
+          {
+            "id": "4.2",
+            "title": "Google News 스크래퍼 구현",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "4.2.1",
+                "title": "검색 쿼리 빌더 생성",
+                "queries": ["현대자동차 자율주행", "Samsung SDI battery", "LG robotics"]
+              },
+              {
+                "id": "4.2.2",
+                "title": "속도 제한이 있는 스크래퍼 구현"
+              },
+              {
+                "id": "4.2.3",
+                "title": "기사 콘텐츠 추출기 구축",
+                "tech": "BeautifulSoup + Newspaper3k"
+              },
+              {
+                "id": "4.2.4",
+                "title": "언어 감지 추가",
+                "library": "langdetect"
+              }
+            ]
+          },
+          {
+            "id": "4.3",
+            "title": "뉴스 처리 파이프라인 생성",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "4.3.1",
+                "title": "처리 큐 구축",
+                "stages": "수집 → 정제 → 분석 → 점수 → 저장"
+              },
+              {
+                "id": "4.3.2",
+                "title": "텍스트 전처리 구현",
+                "steps": "HTML 제거, 공백 정규화, 주요 콘텐츠 추출"
+              },
+              {
+                "id": "4.3.3",
+                "title": "병렬 처리 워커 생성",
+                "workers": "4개의 동시 프로세스"
+              },
+              {
+                "id": "4.3.4",
+                "title": "오류 복구 및 로깅 추가"
+              }
+            ]
+          },
+          {
+            "id": "4.4",
+            "title": "배치 처리 작업 설정",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "4.4.1",
+                "title": "작업 스케줄러 생성",
+                "tech": "APScheduler 또는 Celery Beat"
+              },
+              {
+                "id": "4.4.2",
+                "title": "일일 집계 작업 구현",
+                "jobs": "영향 요약, 트렌드 분석, 보고서 생성"
+              },
+              {
+                "id": "4.4.3",
+                "title": "작업 모니터링 대시보드 구축"
+              },
+              {
+                "id": "4.4.4",
+                "title": "작업 실패 알림 추가"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "5",
+        "title": "MVP 기능",
+        "status": "대기",
+        "priority": "높음",
+        "estimated_hours": 32,
+        "dependencies": ["2", "3"],
+        "subtasks": [
+          {
+            "id": "5.1",
+            "title": "초기 20개 기업 로드",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "5.1.1",
+                "title": "기업 데이터 픽스처 생성",
+                "companies": {
+                  "자율주행": [
+                    "현대자동차 (Hyundai Motor)",
+                    "기아 (Kia)",
+                    "카카오모빌리티 (Kakao Mobility)",
+                    "네이버랩스 (Naver Labs)",
+                    "42dot",
+                    "소프트뱅크 (SoftBank)",
+                    "라이드플럭스 (RideFlux)",
+                    "오토노머스에이투지 (Autonomous a2z)",
+                    "서울로보틱스 (Seoul Robotics)",
+                    "뷰런테크놀로지 (Vueron Technology)"
+                  ],
+                  "로보틱스": [
+                    "두산로보틱스 (Doosan Robotics)",
+                    "레인보우로보틱스 (Rainbow Robotics)",
+                    "로보티즈 (Robotis)",
+                    "유진로봇 (Yujin Robot)",
+                    "한화로보틱스 (Hanwha Robotics)",
+                    "LG전자 (LG Electronics)",
+                    "삼성전자 (Samsung Electronics)",
+                    "배달의민족 (Baemin) - Woowa Brothers",
+                    "트위니 (Twinny)",
+                    "베어로보틱스 (Bear Robotics)"
+                  ]
+                }
+              },
+              {
+                "id": "5.1.2",
+                "title": "기업 메타데이터 추가",
+                "fields": "로고 URL, 설명, 시가총액, 설립 연도"
+              },
+              {
+                "id": "5.1.3",
+                "title": "데이터 마이그레이션 스크립트 생성"
+              },
+              {
+                "id": "5.1.4",
+                "title": "데이터 무결성 검증"
+              }
+            ]
+          },
+          {
+            "id": "5.2",
+            "title": "50개 기업 관계 생성",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "5.2.1",
+                "title": "공급업체 관계 매핑",
+                "examples": "Samsung SDI → 현대 (배터리 공급업체)"
+              },
+              {
+                "id": "5.2.2",
+                "title": "파트너십 연결 식별",
+                "examples": "카카오모빌리티 ↔ 현대 (로보택시 파트너십)"
+              },
+              {
+                "id": "5.2.3",
+                "title": "경쟁사 관계 추가",
+                "examples": "현대 ↔ 기아 (계열사)"
+              },
+              {
+                "id": "5.2.4",
+                "title": "관계 강도 점수 생성",
+                "scale": "1-5 (약함에서 강함)"
+              }
+            ]
+          },
+          {
+            "id": "5.3",
+            "title": "무료 티어 제한 구현",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "5.3.1",
+                "title": "사용량 추적 미들웨어 생성"
+              },
+              {
+                "id": "5.3.2",
+                "title": "일일 제한 적용 구현",
+                "limit": "일일 AI 분석 3회"
+              },
+              {
+                "id": "5.3.3",
+                "title": "관심 목록 크기 제한 추가",
+                "limit": "무료 사용자는 3개 기업"
+              },
+              {
+                "id": "5.3.4",
+                "title": "업그레이드 안내 UI 생성"
+              }
+            ]
+          },
+          {
+            "id": "5.4",
+            "title": "한국어 지원 추가",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "5.4.1",
+                "title": "한국어 뉴스 처리 구현",
+                "tools": "KoNLPy, Mecab 토크나이저"
+              },
+              {
+                "id": "5.4.2",
+                "title": "이중 언어 기업명 지원 추가"
+              },
+              {
+                "id": "5.4.3",
+                "title": "한국어 UI 번역 생성"
+              },
+              {
+                "id": "5.4.4",
+                "title": "한국어 뉴스 소스로 테스트"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "6",
+        "title": "테스트 및 QA",
+        "status": "대기",
+        "priority": "보통",
+        "estimated_hours": 40,
+        "dependencies": ["5"],
+        "subtasks": [
+          {
+            "id": "6.1",
+            "title": "API 단위 테스트 작성",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "6.1.1",
+                "title": "인증 엔드포인트 테스트",
+                "coverage": "로그인, 회원가입, 토큰 갱신"
+              },
+              {
+                "id": "6.1.2",
+                "title": "기업 CRUD 작업 테스트"
+              },
+              {
+                "id": "6.1.3",
+                "title": "뉴스 처리 파이프라인 테스트",
+                "scenarios": "유효한 기사, 중복, 오류"
+              },
+              {
+                "id": "6.1.4",
+                "title": "영향도 점수 알고리즘 테스트",
+                "cases": "엣지 케이스, 점수 범위, 전파"
+              }
+            ]
+          },
+          {
+            "id": "6.2",
+            "title": "프론트엔드 컴포넌트 테스트 작성",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "6.2.1",
+                "title": "대시보드 컴포넌트 테스트",
+                "framework": "Jest + React Testing Library"
+              },
+              {
+                "id": "6.2.2",
+                "title": "폼 유효성 검사 테스트"
+              },
+              {
+                "id": "6.2.3",
+                "title": "실시간 업데이트 테스트"
+              },
+              {
+                "id": "6.2.4",
+                "title": "반응형 레이아웃 테스트"
+              }
+            ]
+          },
+          {
+            "id": "6.3",
+            "title": "성능 테스트",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "6.3.1",
+                "title": "API 부하 테스트",
+                "tool": "Locust 또는 K6",
+                "target": "1000명 동시 사용자"
+              },
+              {
+                "id": "6.3.2",
+                "title": "데이터베이스 쿼리 최적화",
+                "goal": "모든 쿼리 100ms 미만"
+              },
+              {
+                "id": "6.3.3",
+                "title": "프론트엔드 성능 감사",
+                "metrics": "Lighthouse 점수 90점 이상"
+              },
+              {
+                "id": "6.3.4",
+                "title": "뉴스 처리 처리량 테스트",
+                "target": "일일 3000개 기사"
+              }
+            ]
+          },
+          {
+            "id": "6.4",
+            "title": "AI 정확도 검증",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "6.4.1",
+                "title": "감정 분석 검증",
+                "target": "85% 이상 정확도"
+              },
+              {
+                "id": "6.4.2",
+                "title": "개체 추출 테스트",
+                "target": "95% 이상 기업명 인식"
+              },
+              {
+                "id": "6.4.3",
+                "title": "영향도 점수 일관성 검증"
+              },
+              {
+                "id": "6.4.4",
+                "title": "한국어 처리 테스트",
+                "samples": "한국어 기사 100개"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "7",
+        "title": "대회 준비",
+        "status": "대기",
+        "priority": "높음",
+        "estimated_hours": 40,
+        "dependencies": ["6"],
+        "subtasks": [
+          {
+            "id": "7.1",
+            "title": "데모 프레젠테이션 생성",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "7.1.1",
+                "title": "프레젠테이션 덱 디자인",
+                "slides": "10-15 슬라이드",
+                "structure": "문제 → 솔루션 → 데모 → 시장 → 팀"
+              },
+              {
+                "id": "7.1.2",
+                "title": "제품 데모 비디오 생성",
+                "duration": "3-5분",
+                "content": "속보 실시간 분석"
+              },
+              {
+                "id": "7.1.3",
+                "title": "피치 스크립트 준비",
+                "languages": "한국어 우선, 영어 백업"
+              },
+              {
+                "id": "7.1.4",
+                "title": "시각 자료 디자인",
+                "assets": "로고, 스크린샷, 다이어그램"
+              }
+            ]
+          },
+          {
+            "id": "7.2",
+            "title": "샘플 분석 사례 준비",
+            "status": "대기",
+            "estimated_hours": 12,
+            "details": [
+              {
+                "id": "7.2.1",
+                "title": "테슬라 FSD 한국 출시 영향",
+                "affected": "현대, 기아, 자율주행 스타트업"
+              },
+              {
+                "id": "7.2.2",
+                "title": "LG-GM 배터리 파트너십 뉴스",
+                "affected": "LG에너지솔루션, 삼성SDI, SK이노베이션"
+              },
+              {
+                "id": "7.2.3",
+                "title": "보스턴 다이나믹스 인수 소문",
+                "affected": "한국 로보틱스 기업들"
+              },
+              {
+                "id": "7.2.4",
+                "title": "정부 로보틱스 보조금 발표",
+                "affected": "모든 한국 로보틱스 기업"
+              }
+            ]
+          },
+          {
+            "id": "7.3",
+            "title": "고유 가치 제안 문서화",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "7.3.1",
+                "title": "한국 시장 집중 차별화",
+                "points": "현지 언어, 현지 기업, 현지 맥락"
+              },
+              {
+                "id": "7.3.2",
+                "title": "AI 우선 접근법의 이점",
+                "points": "실시간, 포괄적, 정확"
+              },
+              {
+                "id": "7.3.3",
+                "title": "네트워크 분석의 장점",
+                "points": "숨겨진 연결, 파급 효과"
+              },
+              {
+                "id": "7.3.4",
+                "title": "합리적인 가격 전략",
+                "comparison": "Bloomberg: 연 $24K vs FluxNews: 연 $120"
+              }
+            ]
+          },
+          {
+            "id": "7.4",
+            "title": "데모를 위한 UI/UX 다듬기",
+            "status": "대기",
+            "estimated_hours": 8,
+            "details": [
+              {
+                "id": "7.4.1",
+                "title": "부드러운 애니메이션 추가",
+                "libraries": "Framer Motion, React Spring"
+              },
+              {
+                "id": "7.4.2",
+                "title": "데모 데이터 세트 생성",
+                "content": "높은 영향도의 엄선된 기사 50개"
+              },
+              {
+                "id": "7.4.3",
+                "title": "로딩 상태 최적화"
+              },
+              {
+                "id": "7.4.4",
+                "title": "성공 알림 추가",
+                "library": "React Hot Toast"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-11T11:50:42.927Z",
+      "updated": "2025-07-11T11:50:42.928Z",
+      "description": "FluxNews 프로젝트 작업 목록",
+      "project": "FluxNews",
+      "total_estimated_hours": 300,
+      "timeline": "4주",
+      "milestones": [
+        {
+          "week": 1,
+          "goals": ["설정 완료", "핵심 백엔드 서비스 시작", "기본 UI 컴포넌트"]
+        },
+        {
+          "week": 2,
+          "goals": ["뉴스 파이프라인 운영", "AI 통합 완료", "대시보드 기능"]
+        },
+        {
+          "week": 3,
+          "goals": ["모든 MVP 기능", "초기 데이터 로드", "통합 테스트"]
+        },
+        {
+          "week": 4,
+          "goals": ["성능 최적화", "데모 준비", "최종 마무리"]
+        }
+      ],
+      "risks": [
+        {
+          "risk": "OpenAI API 비용이 예산 초과",
+          "mitigation": "적극적인 캐싱 구현, 중요하지 않은 작업에는 GPT-3.5 사용"
+        },
+        {
+          "risk": "뉴스 처리 성능 문제",
+          "mitigation": "큐 기반 아키텍처, 수평 확장 준비"
+        },
+        {
+          "risk": "한국어 처리 정확도",
+          "mitigation": "하이브리드 접근: 한국어 전용 모델 + 번역"
+        }
+      ]
+    }
+  }
+}

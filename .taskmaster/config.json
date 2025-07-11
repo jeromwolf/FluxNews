@@ -1,0 +1,26 @@
+{
+  "project": {
+    "name": "FluxNews",
+    "description": "AI-powered real-time global news impact analysis platform for Korean investors",
+    "version": "0.1.0"
+  },
+  "tasks": {
+    "file": "tasks.json",
+    "autoSave": true,
+    "backupEnabled": true
+  },
+  "display": {
+    "showCompletedTasks": true,
+    "showSubtasks": true,
+    "dateFormat": "YYYY-MM-DD",
+    "colorScheme": "default"
+  },
+  "notifications": {
+    "enabled": false,
+    "onTaskComplete": true,
+    "onMilestone": true
+  },
+  "global": {
+    "defaultTag": "master"
+  }
+}
