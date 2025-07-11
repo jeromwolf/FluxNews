@@ -13,3 +13,26 @@ black==23.12.1
 flake8==7.0.0
 mypy==1.8.0
 isort==5.13.2
+
+# News collection dependencies
+feedparser==6.0.11
+beautifulsoup4==4.12.3
+aiohttp==3.9.3
+lxml==5.1.0
+python-dateutil==2.8.2
+
+# AI/ML dependencies
+openai==1.10.0
+transformers==4.37.2
+torch==2.1.2
+sentencepiece==0.1.99
+konlpy==0.6.0
+
+# Task scheduling
+apscheduler==3.10.4
+celery==5.3.4
+redis==5.0.1
+
+# Monitoring and logging
+sentry-sdk[fastapi]==1.40.0
+prometheus-client==0.19.0
