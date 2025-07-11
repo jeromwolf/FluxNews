@@ -18,7 +18,9 @@
       "Bash(source:*)",
       "Bash(pkill:*)",
       "Bash(curl:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(git remote:*)",
+      "Bash(git push:*)"
     ],
     "deny": []
   }

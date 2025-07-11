@@ -52,4 +52,11 @@ logs/
 # Misc
 *.pem
 .cache/
+
+# Task management
+.taskmaster/
+taskmaster.config.json
+
+# Local settings
+.claude/
 EOF < /dev/null
