@@ -6,6 +6,7 @@ from app.core.supabase import get_supabase_client
 from app.services.news import NewsPipeline
 from app.services.ai import NewsAnalyzer, CostTracker, BatchAnalyzer
 from app.services.sentiment import SentimentPipeline
+from app.services.impact import ImpactAnalysisPipeline
 import os
 import logging
 
@@ -331,3 +332,56 @@ async def analyze_article_sentiment(
         "message": f"Sentiment analysis started for article {article_id}",
         "article_id": article_id
     }
+
+@router.post("/impact/analyze/{article_id}")
+async def analyze_article_impact(
+    article_id: int,
+    background_tasks: BackgroundTasks
+):
+    """기사의 기업별 영향도 분석 (백그라운드)"""
+    
+    async def _analyze_impact():
+        impact_pipeline = ImpactAnalysisPipeline()
+        await impact_pipeline.analyze_article_impacts(
+            article_id=article_id,
+            force_reanalysis=True
+        )
+    
+    background_tasks.add_task(_analyze_impact)
+    
+    return {
+        "message": f"Impact analysis started for article {article_id}",
+        "article_id": article_id
+    }
+
+@router.get("/impact/company/{company_id}")
+async def get_company_impact_summary(
+    company_id: int,
+    days: int = Query(7, description="Analysis period in days")
+):
+    """특정 기업의 영향도 요약 조회"""
+    impact_pipeline = ImpactAnalysisPipeline()
+    summary = await impact_pipeline.get_company_impact_summary(
+        company_id=company_id,
+        days=days
+    )
+    return summary
+
+@router.get("/impact/article/{article_id}")
+async def get_article_impacts(article_id: int):
+    """특정 기사의 모든 기업 영향도 조회"""
+    supabase = get_supabase_client()
+    
+    try:
+        response = supabase.table("news_company_impacts")\
+            .select("*, companies(name, ticker)")\
+            .eq("article_id", article_id)\
+            .execute()
+            
+        return {
+            "article_id": article_id,
+            "impacts": response.data,
+            "total_companies": len(response.data)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
