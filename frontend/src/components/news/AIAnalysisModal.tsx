@@ -11,6 +11,7 @@ import {
   ArrowTrendingDownIcon,
   InformationCircleIcon
 } from '@heroicons/react/24/outline'
+import type { AIAnalysisResponse } from '@/types/api'
 
 interface AIAnalysisModalProps {
   isOpen: boolean
@@ -26,48 +27,15 @@ interface AIAnalysisModalProps {
     companies: string[]
     category: string
   }
-  analysis?: {
-    detailedSummary: string
-    keyPoints: string[]
-    affectedCompanies: {
-      name: string
-      impact: 'high' | 'medium' | 'low'
-      reason: string
-    }[]
-    marketImpact: {
-      sector: string
-      trend: 'up' | 'down' | 'neutral'
-      percentage: number
-    }[]
-    recommendations: string[]
-    confidence: number
-  }
+  analysis?: AIAnalysisResponse | null
+  loading?: boolean
 }
 
-export default function AIAnalysisModal({ isOpen, onClose, news, analysis }: AIAnalysisModalProps) {
-  // 임시 분석 데이터
-  const mockAnalysis = analysis || {
-    detailedSummary: "테슬라의 새로운 자율주행 칩 개발은 한국 반도체 산업에 중요한 기회를 제공합니다. 특히 삼성전자와 SK하이닉스는 차세대 AI 칩 생산에서 핵심 파트너가 될 가능성이 높습니다.",
-    keyPoints: [
-      "5nm 공정 기술을 활용한 고성능 AI 칩 수요 증가",
-      "한국 반도체 기업의 파운드리 서비스 수주 가능성",
-      "자율주행 시장 확대에 따른 장기적 성장 기회"
-    ],
-    affectedCompanies: [
-      { name: "삼성전자", impact: "high", reason: "파운드리 사업부 직접 수혜 예상" },
-      { name: "SK하이닉스", impact: "medium", reason: "HBM 메모리 공급 기회" },
-      { name: "현대자동차", impact: "low", reason: "경쟁사 기술 발전으로 간접 영향" }
-    ],
-    marketImpact: [
-      { sector: "반도체", trend: "up", percentage: 3.5 },
-      { sector: "자동차", trend: "neutral", percentage: 0.2 }
-    ],
-    recommendations: [
-      "삼성전자 및 SK하이닉스 주식 매수 고려",
-      "반도체 섹터 ETF 편입 비중 확대",
-      "테슬라 공급망 관련 기업 모니터링 강화"
-    ],
-    confidence: 0.82
+export default function AIAnalysisModal({ isOpen, onClose, news, analysis, loading }: AIAnalysisModalProps) {
+  const getSentimentConfidence = () => {
+    if (!analysis) return 0.7
+    const sentiment = analysis.sentiment
+    return Math.max(sentiment.positive, sentiment.negative, sentiment.neutral)
   }
 
   const getImpactColor = (impact: string) => {
@@ -158,115 +126,151 @@ export default function AIAnalysisModal({ isOpen, onClose, news, analysis }: AIA
                         <div className="w-32 bg-gray-200 dark:bg-gray-700 rounded-full h-2 mr-2">
                           <div 
                             className="bg-electric-blue h-2 rounded-full"
-                            style={{ width: `${mockAnalysis.confidence * 100}%` }}
+                            style={{ width: `${getSentimentConfidence() * 100}%` }}
                           />
                         </div>
                         <span className="text-sm font-medium text-gray-900 dark:text-white">
-                          {(mockAnalysis.confidence * 100).toFixed(0)}%
+                          {(getSentimentConfidence() * 100).toFixed(0)}%
                         </span>
                       </div>
                     </div>
 
                     {/* 상세 요약 */}
-                    <div>
-                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2">
-                        상세 분석
-                      </h4>
-                      <p className="text-gray-600 dark:text-gray-300">
-                        {mockAnalysis.detailedSummary}
-                      </p>
-                    </div>
-
-                    {/* 핵심 포인트 */}
-                    <div>
-                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2">
-                        핵심 포인트
-                      </h4>
-                      <ul className="space-y-2">
-                        {mockAnalysis.keyPoints.map((point, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="text-electric-blue mr-2">•</span>
-                            <span className="text-gray-600 dark:text-gray-300">{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* 영향 받는 기업 */}
-                    <div>
-                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2 flex items-center">
-                        <BuildingOfficeIcon className="h-5 w-5 mr-2" />
-                        영향 받는 기업
-                      </h4>
-                      <div className="space-y-2">
-                        {mockAnalysis.affectedCompanies.map((company) => (
-                          <div key={company.name} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
-                            <div className="flex-1">
-                              <div className="flex items-center">
-                                <span className="font-medium text-gray-900 dark:text-white">
-                                  {company.name}
-                                </span>
-                                <span className={`ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${getImpactColor(company.impact)}`}>
-                                  영향도: {getImpactText(company.impact)}
-                                </span>
-                              </div>
-                              <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                {company.reason}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
+                    {loading ? (
+                      <div className="text-center py-8">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-electric-blue mx-auto"></div>
+                        <p className="mt-4 text-gray-500 dark:text-gray-400">AI가 분석 중입니다...</p>
                       </div>
-                    </div>
-
-                    {/* 시장 영향 */}
-                    <div>
-                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2 flex items-center">
-                        <ChartBarIcon className="h-5 w-5 mr-2" />
-                        시장 영향
-                      </h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        {mockAnalysis.marketImpact.map((impact) => (
-                          <div key={impact.sector} className="bg-gray-50 dark:bg-gray-900 rounded-lg p-4">
-                            <div className="flex items-center justify-between">
-                              <span className="text-sm font-medium text-gray-900 dark:text-white">
-                                {impact.sector}
-                              </span>
-                              <div className="flex items-center">
-                                {impact.trend === 'up' ? (
-                                  <ArrowTrendingUpIcon className="h-5 w-5 text-green-600 mr-1" />
-                                ) : impact.trend === 'down' ? (
-                                  <ArrowTrendingDownIcon className="h-5 w-5 text-red-600 mr-1" />
-                                ) : null}
-                                <span className={`text-sm font-medium ${
-                                  impact.trend === 'up' ? 'text-green-600' : 
-                                  impact.trend === 'down' ? 'text-red-600' : 'text-gray-600'
-                                }`}>
-                                  {impact.trend === 'up' ? '+' : ''}{impact.percentage}%
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+                    ) : analysis ? (
+                      <div>
+                        <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2">
+                          상세 분석
+                        </h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {analysis.summary}
+                        </p>
                       </div>
-                    </div>
+                    ) : (
+                      <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                        분석 데이터를 불러오는 중입니다...
+                      </div>
+                    )}
 
-                    {/* 투자 추천 사항 */}
-                    <div>
-                      <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2">
-                        투자 추천 사항
-                      </h4>
-                      <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
-                        <ul className="space-y-2">
-                          {mockAnalysis.recommendations.map((rec, index) => (
-                            <li key={index} className="flex items-start">
-                              <span className="text-yellow-600 dark:text-yellow-400 mr-2">▶</span>
-                              <span className="text-gray-700 dark:text-gray-300">{rec}</span>
-                            </li>
+                    {/* 핵심 기업 */}
+                    {analysis && analysis.key_companies.length > 0 && (
+                      <div>
+                        <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2">
+                          핵심 기업
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {analysis.key_companies.map((company, index) => (
+                            <div key={index} className="bg-gray-100 dark:bg-gray-700 rounded-lg px-3 py-2">
+                              <div className="font-medium text-gray-900 dark:text-white">
+                                {company.name}
+                              </div>
+                              {company.ticker && (
+                                <div className="text-xs text-gray-500 dark:text-gray-400">
+                                  {company.ticker}
+                                </div>
+                              )}
+                              {company.role && (
+                                <div className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                  {company.role}
+                                </div>
+                              )}
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
-                    </div>
+                    )}
+
+                    {/* 영향 분석 */}
+                    {analysis && Object.keys(analysis.impact_analysis).length > 0 && (
+                      <div>
+                        <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                          <BuildingOfficeIcon className="h-5 w-5 mr-2" />
+                          기업별 영향 분석
+                        </h4>
+                        <div className="space-y-2">
+                          {Object.entries(analysis.impact_analysis).map(([company, impact]) => (
+                            <div key={company} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                              <div className="flex-1">
+                                <div className="flex items-center">
+                                  <span className="font-medium text-gray-900 dark:text-white">
+                                    {company}
+                                  </span>
+                                  <span className={`ml-2 px-2 py-0.5 text-xs font-medium rounded-full ${
+                                    impact.impact === 'positive' ? 'text-green-600 bg-green-100 dark:text-green-400 dark:bg-green-900/20' :
+                                    impact.impact === 'negative' ? 'text-red-600 bg-red-100 dark:text-red-400 dark:bg-red-900/20' :
+                                    'text-gray-600 bg-gray-100 dark:text-gray-400 dark:bg-gray-900/20'
+                                  }`}>
+                                    {impact.impact === 'positive' ? '긍정적' : impact.impact === 'negative' ? '부정적' : '중립'}
+                                  </span>
+                                  <span className="ml-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+                                    {(impact.score * 100).toFixed(0)}%
+                                  </span>
+                                </div>
+                                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                  {impact.reason}
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 감정 분석 */}
+                    {analysis && (
+                      <div>
+                        <h4 className="text-base font-medium text-gray-900 dark:text-white mb-2 flex items-center">
+                          <ChartBarIcon className="h-5 w-5 mr-2" />
+                          감정 분석
+                        </h4>
+                        <div className="grid grid-cols-3 gap-4">
+                          <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4">
+                            <div className="text-sm font-medium text-green-900 dark:text-green-300">
+                              긍정
+                            </div>
+                            <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                              {(analysis.sentiment.positive * 100).toFixed(0)}%
+                            </div>
+                          </div>
+                          <div className="bg-gray-50 dark:bg-gray-900/20 rounded-lg p-4">
+                            <div className="text-sm font-medium text-gray-900 dark:text-gray-300">
+                              중립
+                            </div>
+                            <div className="text-2xl font-bold text-gray-600 dark:text-gray-400">
+                              {(analysis.sentiment.neutral * 100).toFixed(0)}%
+                            </div>
+                          </div>
+                          <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4">
+                            <div className="text-sm font-medium text-red-900 dark:text-red-300">
+                              부정
+                            </div>
+                            <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                              {(analysis.sentiment.negative * 100).toFixed(0)}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* 투자 참고 사항 */}
+                    {analysis && (
+                      <div className="bg-yellow-50 dark:bg-yellow-900/20 rounded-lg p-4">
+                        <div className="flex items-center mb-2">
+                          <InformationCircleIcon className="h-5 w-5 text-yellow-600 dark:text-yellow-400 mr-2" />
+                          <h4 className="text-base font-medium text-yellow-900 dark:text-yellow-300">
+                            투자 참고 사항
+                          </h4>
+                        </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">
+                          이 분석은 AI가 생성한 참고 자료이며, 투자 결정의 유일한 근거가 되어서는 안 됩니다. 
+                          실제 투자 전 반드시 전문가와 상담하시기 바랍니다.
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
 

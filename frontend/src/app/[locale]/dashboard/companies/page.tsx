@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react'
 import ReactFlow, {
   Node,
   Edge,
@@ -19,6 +19,7 @@ import DashboardLayout from '@/components/layout/DashboardLayout'
 import CompanyNode from '@/components/network/CompanyNode'
 import CompanyDetailPanel from '@/components/network/CompanyDetailPanel'
 import NetworkFilters from '@/components/network/NetworkFilters'
+import { useCompanyNetwork } from '@/hooks/useCompanies'
 import { 
   BuildingOfficeIcon,
   MagnifyingGlassIcon,
@@ -26,154 +27,55 @@ import {
   ArrowsPointingInIcon
 } from '@heroicons/react/24/outline'
 
-// 임시 기업 데이터
-const initialNodes: Node[] = [
-  {
-    id: '1',
-    type: 'company',
-    position: { x: 400, y: 100 },
-    data: { 
-      label: '삼성전자',
-      category: '반도체',
-      marketCap: '400조원',
-      impactScore: 0.92,
-      newsCount: 45
-    }
-  },
-  {
-    id: '2',
-    type: 'company',
-    position: { x: 200, y: 200 },
-    data: { 
-      label: 'SK하이닉스',
-      category: '반도체',
-      marketCap: '80조원',
-      impactScore: 0.85,
-      newsCount: 32
-    }
-  },
-  {
-    id: '3',
-    type: 'company',
-    position: { x: 600, y: 200 },
-    data: { 
-      label: '현대자동차',
-      category: '자동차',
-      marketCap: '50조원',
-      impactScore: 0.78,
-      newsCount: 28
-    }
-  },
-  {
-    id: '4',
-    type: 'company',
-    position: { x: 400, y: 300 },
-    data: { 
-      label: 'LG에너지솔루션',
-      category: '배터리',
-      marketCap: '100조원',
-      impactScore: 0.88,
-      newsCount: 38
-    }
-  },
-  {
-    id: '5',
-    type: 'company',
-    position: { x: 200, y: 400 },
-    data: { 
-      label: '현대로보틱스',
-      category: '로보틱스',
-      marketCap: '5조원',
-      impactScore: 0.72,
-      newsCount: 15
-    }
-  },
-  {
-    id: '6',
-    type: 'company',
-    position: { x: 600, y: 400 },
-    data: { 
-      label: '네이버',
-      category: 'AI/플랫폼',
-      marketCap: '60조원',
-      impactScore: 0.81,
-      newsCount: 22
-    }
-  }
-]
-
-const initialEdges: Edge[] = [
-  {
-    id: 'e1-2',
-    source: '1',
-    target: '2',
-    type: 'smoothstep',
-    animated: true,
-    label: '기술 협력',
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
-    data: { strength: 0.8 }
-  },
-  {
-    id: 'e1-3',
-    source: '1',
-    target: '3',
-    type: 'smoothstep',
-    label: '부품 공급',
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
-    data: { strength: 0.6 }
-  },
-  {
-    id: 'e3-4',
-    source: '3',
-    target: '4',
-    type: 'smoothstep',
-    animated: true,
-    label: '배터리 공급',
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
-    data: { strength: 0.9 }
-  },
-  {
-    id: 'e3-5',
-    source: '3',
-    target: '5',
-    type: 'smoothstep',
-    label: '자회사',
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
-    data: { strength: 1.0 }
-  },
-  {
-    id: 'e2-6',
-    source: '2',
-    target: '6',
-    type: 'smoothstep',
-    label: 'AI 칩 공급',
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
-    data: { strength: 0.7 }
-  }
-]
-
 const nodeTypes = {
   company: CompanyNode,
 }
 
 export default function CompaniesPage() {
-  const [nodes, , onNodesChange] = useNodesState(initialNodes)
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+  const [selectedSector, setSelectedSector] = useState<string | undefined>()
+  const { network, loading, error } = useCompanyNetwork(selectedSector)
+  
+  const [nodes, setNodes, onNodesChange] = useNodesState([])
+  const [edges, setEdges, onEdgesChange] = useEdgesState([])
   const [selectedNode, setSelectedNode] = useState<Node | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [showLabels, setShowLabels] = useState(true)
   const [isFullscreen, setIsFullscreen] = useState(false)
+
+  // Convert API data to ReactFlow format
+  useEffect(() => {
+    if (network) {
+      const flowNodes: Node[] = network.nodes.map((node) => ({
+        id: node.id.toString(),
+        type: 'company',
+        position: { x: node.x || 0, y: node.y || 0 },
+        data: {
+          label: node.name,
+          category: node.sector,
+          ticker: node.ticker,
+          impactScore: 0.8, // 임시값
+          newsCount: Math.floor(Math.random() * 50) // 임시값
+        }
+      }))
+
+      const flowEdges: Edge[] = network.edges.map((edge, index) => ({
+        id: `e${edge.source}-${edge.target}`,
+        source: edge.source.toString(),
+        target: edge.target.toString(),
+        type: 'smoothstep',
+        animated: edge.weight > 0.8,
+        label: edge.type,
+        markerEnd: {
+          type: MarkerType.ArrowClosed,
+        },
+        data: { strength: edge.weight }
+      }))
+
+      setNodes(flowNodes)
+      setEdges(flowEdges)
+    }
+  }, [network, setNodes, setEdges])
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
@@ -184,7 +86,7 @@ export default function CompaniesPage() {
     setSelectedNode(node)
   }, [])
 
-  const categories = ['all', '반도체', '자동차', '배터리', '로보틱스', 'AI/플랫폼']
+  const categories = ['all', 'autonomous_driving', 'robotics', '반도체', '자동차', '배터리', 'AI']
 
   const filteredNodes = useMemo(() => {
     let filtered = nodes
@@ -290,17 +192,27 @@ export default function CompaniesPage() {
           <div className={`bg-white dark:bg-gray-800 rounded-lg shadow-lg ${
             isFullscreen ? 'fixed inset-0 z-50' : 'h-[600px]'
           }`}>
-            <ReactFlow
-              nodes={filteredNodes}
-              edges={filteredEdges}
-              onNodesChange={onNodesChange}
-              onEdgesChange={onEdgesChange}
-              onConnect={onConnect}
-              onNodeClick={onNodeClick}
-              nodeTypes={nodeTypes}
-              fitView
-              attributionPosition="bottom-left"
-            >
+            {loading ? (
+              <div className="flex items-center justify-center h-full">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-electric-blue"></div>
+                <p className="ml-4 text-gray-500 dark:text-gray-400">네트워크 데이터 로딩 중...</p>
+              </div>
+            ) : error ? (
+              <div className="flex items-center justify-center h-full">
+                <p className="text-red-500">오류: {error}</p>
+              </div>
+            ) : (
+              <ReactFlow
+                nodes={filteredNodes}
+                edges={filteredEdges}
+                onNodesChange={onNodesChange}
+                onEdgesChange={onEdgesChange}
+                onConnect={onConnect}
+                onNodeClick={onNodeClick}
+                nodeTypes={nodeTypes}
+                fitView
+                attributionPosition="bottom-left"
+              >
               <Background color="#aaa" gap={16} />
               <Controls />
               <MiniMap 
@@ -318,7 +230,8 @@ export default function CompaniesPage() {
                   backgroundColor: 'rgba(0, 0, 0, 0.1)',
                 }}
               />
-            </ReactFlow>
+              </ReactFlow>
+            )}
           </div>
 
           {/* 범례 */}

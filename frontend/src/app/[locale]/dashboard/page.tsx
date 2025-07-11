@@ -1,55 +1,35 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ProtectedRoute from '@/components/auth/ProtectedRoute'
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import NewsCard from '@/components/news/NewsCard'
 import SearchFilter from '@/components/news/SearchFilter'
 import AIAnalysisModal from '@/components/news/AIAnalysisModal'
+import { useNewsFeed, useAIAnalysis } from '@/hooks/useNews'
+import { useAuth } from '@/hooks/useAuth'
 import { 
   ArrowTrendingUpIcon, 
   ArrowTrendingDownIcon
 } from '@heroicons/react/24/outline'
+import type { NewsArticle, AIAnalysisResponse } from '@/types/api'
 
-// 임시 뉴스 데이터
-const mockNews = [
-  {
-    id: 1,
-    title: "테슬라, 새로운 자율주행 칩 개발 발표",
-    source: "Reuters",
-    publishedAt: "2시간 전",
-    summary: "테슬라가 차세대 자율주행 칩 개발을 발표했습니다. 이는 한국 반도체 기업들에게 새로운 기회가 될 수 있습니다.",
-    impactScore: 0.85,
-    sentiment: "positive" as const,
-    companies: ["삼성전자", "SK하이닉스"],
-    category: "자율주행",
-    isHot: true
-  },
-  {
-    id: 2,
-    title: "현대자동차, 보스턴 다이내믹스와 로봇 기술 협력 확대",
-    source: "Bloomberg",
-    publishedAt: "4시간 전",
-    summary: "현대자동차가 보스턴 다이내믹스와의 협력을 확대하여 산업용 로봇 개발에 박차를 가합니다.",
-    impactScore: 0.72,
-    sentiment: "positive" as const,
-    companies: ["현대자동차", "현대로보틱스"],
-    category: "로보틱스",
-    isHot: false
-  },
-  {
-    id: 3,
-    title: "중국 BYD, 유럽 전기차 시장 공격적 진출",
-    source: "Financial Times",
-    publishedAt: "6시간 전",
-    summary: "중국 BYD의 유럽 시장 진출로 한국 전기차 부품 업체들의 경쟁이 심화될 전망입니다.",
-    impactScore: 0.68,
-    sentiment: "negative" as const,
-    companies: ["LG에너지솔루션", "삼성SDI"],
-    category: "전기차",
-    isHot: true
+// 시간 포맷 함수
+const formatTimeAgo = (dateString: string) => {
+  const date = new Date(dateString)
+  const now = new Date()
+  const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
+  
+  if (diffInHours < 1) {
+    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60))
+    return `${diffInMinutes}분 전`
+  } else if (diffInHours < 24) {
+    return `${diffInHours}시간 전`
+  } else {
+    const diffInDays = Math.floor(diffInHours / 24)
+    return `${diffInDays}일 전`
   }
-]
+}
 
 const stats = [
   { name: '오늘의 뉴스', value: '127', change: '+12%', trend: 'up' },
@@ -59,25 +39,33 @@ const stats = [
 ]
 
 export default function DashboardPage() {
-  const [news, setNews] = useState(mockNews)
-  const [selectedNews, setSelectedNews] = useState<typeof mockNews[0] | null>(null)
+  const { user } = useAuth()
+  const { articles, loading, error, loadMore, hasMore, refresh } = useNewsFeed()
+  const { analyzeArticle, analyzing } = useAIAnalysis()
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null)
+  const [analysisData, setAnalysisData] = useState<AIAnalysisResponse | null>(null)
   const [showAnalysis, setShowAnalysis] = useState(false)
+  const [filteredArticles, setFilteredArticles] = useState<NewsArticle[]>([])
 
-  const allCompanies = Array.from(new Set(mockNews.flatMap(n => n.companies)))
-  const allCategories = Array.from(new Set(mockNews.map(n => n.category)))
+  useEffect(() => {
+    setFilteredArticles(articles)
+  }, [articles])
+
+  // 임시 카테고리 및 회사 목록 (실제로는 API에서 가져와야 함)
+  const allCompanies = ['삼성전자', 'SK하이닉스', '현대자동차', 'LG에너지솔루션', '현대로보틱스']
+  const allCategories = ['자율주행', '로보틱스', '전기차', 'AI', '반도체']
 
   const handleSearch = (query: string) => {
     if (!query) {
-      setNews(mockNews)
+      setFilteredArticles(articles)
       return
     }
     
-    const filtered = mockNews.filter(item => 
+    const filtered = articles.filter(item => 
       item.title.toLowerCase().includes(query.toLowerCase()) ||
-      item.summary.toLowerCase().includes(query.toLowerCase()) ||
-      item.companies.some(c => c.toLowerCase().includes(query.toLowerCase()))
+      item.content.toLowerCase().includes(query.toLowerCase())
     )
-    setNews(filtered)
+    setFilteredArticles(filtered)
   }
 
   const handleFilterChange = (filters: {
@@ -87,38 +75,50 @@ export default function DashboardPage() {
     impactScore: number
     dateRange: 'all' | 'today' | 'week' | 'month'
   }) => {
-    let filtered = [...mockNews]
+    let filtered = [...articles]
     
-    if (filters.companies.length > 0) {
+    // 날짜 필터
+    if (filters.dateRange !== 'all') {
+      const now = new Date()
+      const filterDate = new Date()
+      
+      switch (filters.dateRange) {
+        case 'today':
+          filterDate.setDate(now.getDate() - 1)
+          break
+        case 'week':
+          filterDate.setDate(now.getDate() - 7)
+          break
+        case 'month':
+          filterDate.setMonth(now.getMonth() - 1)
+          break
+      }
+      
       filtered = filtered.filter(item => 
-        item.companies.some(c => filters.companies.includes(c))
+        new Date(item.published_date) >= filterDate
       )
     }
     
-    if (filters.categories.length > 0) {
+    // 감정 점수 필터
+    if (filters.sentiment !== 'all' && filters.impactScore > 0) {
       filtered = filtered.filter(item => 
-        filters.categories.includes(item.category)
+        item.sentiment_score && item.sentiment_score >= filters.impactScore / 100
       )
     }
     
-    if (filters.sentiment !== 'all') {
-      filtered = filtered.filter(item => item.sentiment === filters.sentiment)
-    }
-    
-    if (filters.impactScore > 0) {
-      filtered = filtered.filter(item => 
-        item.impactScore * 100 >= filters.impactScore
-      )
-    }
-    
-    setNews(filtered)
+    setFilteredArticles(filtered)
   }
 
-  const handleAnalyze = (newsId: number) => {
-    const newsItem = mockNews.find(n => n.id === newsId)
-    if (newsItem) {
-      setSelectedNews(newsItem)
+  const handleAnalyze = async (articleId: number) => {
+    const article = articles.find(a => a.id === articleId)
+    if (article && user) {
+      setSelectedArticle(article)
       setShowAnalysis(true)
+      
+      const analysis = await analyzeArticle(articleId, user.id)
+      if (analysis) {
+        setAnalysisData(analysis)
+      }
     }
   }
 
@@ -185,34 +185,91 @@ export default function DashboardPage() {
 
           {/* 뉴스 리스트 */}
           <div className="space-y-4">
-            {news.length === 0 ? (
+            {loading && filteredArticles.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-electric-blue mx-auto"></div>
+                <p className="mt-4 text-gray-500 dark:text-gray-400">뉴스를 불러오는 중...</p>
+              </div>
+            ) : error ? (
+              <div className="text-center py-12">
+                <p className="text-red-500">오류가 발생했습니다: {error}</p>
+                <button
+                  onClick={refresh}
+                  className="mt-4 px-4 py-2 bg-electric-blue text-white rounded hover:bg-blue-600"
+                >
+                  다시 시도
+                </button>
+              </div>
+            ) : filteredArticles.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-500 dark:text-gray-400">
                   검색 결과가 없습니다.
                 </p>
               </div>
             ) : (
-              news.map((item) => (
-                <NewsCard
-                  key={item.id}
-                  news={item}
-                  onAnalyze={handleAnalyze}
-                  onBookmark={(id) => console.log('Bookmark:', id)}
-                  onShare={(id) => console.log('Share:', id)}
-                />
-              ))
+              <>
+                {filteredArticles.map((article) => (
+                  <NewsCard
+                    key={article.id}
+                    news={{
+                      id: article.id,
+                      title: article.title,
+                      source: article.source,
+                      publishedAt: formatTimeAgo(article.published_date),
+                      summary: article.content.substring(0, 200) + '...',
+                      impactScore: article.sentiment_score || 0.5,
+                      sentiment: article.sentiment_score ? 
+                        (article.sentiment_score > 0.6 ? 'positive' : 
+                         article.sentiment_score < 0.4 ? 'negative' : 'neutral') : 'neutral',
+                      companies: [],
+                      category: '뉴스',
+                      isHot: article.processed
+                    }}
+                    onAnalyze={handleAnalyze}
+                    onBookmark={(id) => console.log('Bookmark:', id)}
+                    onShare={(id) => console.log('Share:', id)}
+                  />
+                ))}
+                {hasMore && (
+                  <div className="text-center py-4">
+                    <button
+                      onClick={loadMore}
+                      disabled={loading}
+                      className="px-6 py-2 bg-electric-blue text-white rounded hover:bg-blue-600 disabled:opacity-50"
+                    >
+                      {loading ? '로딩 중...' : '더 보기'}
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
           
           {/* AI 분석 모달 */}
-          {selectedNews && (
+          {selectedArticle && (
             <AIAnalysisModal
               isOpen={showAnalysis}
               onClose={() => {
                 setShowAnalysis(false)
-                setSelectedNews(null)
+                setSelectedArticle(null)
+                setAnalysisData(null)
               }}
-              news={selectedNews}
+              news={{
+                id: selectedArticle.id,
+                title: selectedArticle.title,
+                source: selectedArticle.source,
+                publishedAt: formatTimeAgo(selectedArticle.published_date),
+                summary: selectedArticle.content.substring(0, 200) + '...',
+                impactScore: selectedArticle.sentiment_score || 0.5,
+                sentiment: selectedArticle.sentiment_score ? 
+                  (selectedArticle.sentiment_score > 0.6 ? 'positive' : 
+                   selectedArticle.sentiment_score < 0.4 ? 'negative' : 'neutral') : 'neutral',
+                companies: analysisData?.key_companies.map(c => c.name) || [],
+                category: '뉴스',
+                isHot: selectedArticle.processed
+              }}
+              analysis={analysisData}
+              loading={analyzing}
             />
           )}
         </div>
