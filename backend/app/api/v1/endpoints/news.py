@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from app.core.supabase import get_supabase_client
 from app.services.news import NewsPipeline
 from app.services.ai import NewsAnalyzer, CostTracker, BatchAnalyzer
+from app.services.sentiment import SentimentPipeline
 import os
 import logging
 
@@ -283,3 +284,50 @@ async def get_global_ai_usage():
     cost_tracker = CostTracker()
     stats = await cost_tracker.get_global_stats()
     return stats
+
+@router.get("/sentiment/market")
+async def get_market_sentiment(
+    hours: int = Query(24, description="Time window in hours"),
+    company_id: Optional[int] = Query(None, description="Specific company ID")
+):
+    """시장 감정 지표 조회"""
+    sentiment_pipeline = SentimentPipeline(enable_gpu=False)
+    sentiment = await sentiment_pipeline.get_market_sentiment(
+        time_window_hours=hours,
+        company_id=company_id
+    )
+    return sentiment
+
+@router.post("/sentiment/analyze/{article_id}")
+async def analyze_article_sentiment(
+    article_id: int,
+    background_tasks: BackgroundTasks
+):
+    """특정 기사 감정 분석 (백그라운드)"""
+    
+    async def _analyze_sentiment():
+        sentiment_pipeline = SentimentPipeline(enable_gpu=False)
+        supabase = get_supabase_client()
+        
+        # 기사 조회
+        response = supabase.table("news_articles")\
+            .select("title, content")\
+            .eq("id", article_id)\
+            .single()\
+            .execute()
+            
+        if response.data:
+            article = response.data
+            await sentiment_pipeline.analyze_article(
+                article_id=article_id,
+                title=article["title"],
+                content=article["content"],
+                force_reanalysis=True
+            )
+    
+    background_tasks.add_task(_analyze_sentiment)
+    
+    return {
+        "message": f"Sentiment analysis started for article {article_id}",
+        "article_id": article_id
+    }

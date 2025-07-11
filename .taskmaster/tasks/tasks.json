@@ -340,7 +340,8 @@
           {
             "id": "3.1",
             "title": "뉴스 수집 서비스 구현",
-            "status": "대기",
+            "status": "완료",
+            "completedAt": "2025-01-11",
             "estimated_hours": 16,
             "details": [
               {
@@ -372,7 +373,8 @@
           {
             "id": "3.2",
             "title": "분석을 위한 OpenAI 통합",
-            "status": "대기",
+            "status": "완료",
+            "completedAt": "2025-01-11",
             "estimated_hours": 12,
             "details": [
               {

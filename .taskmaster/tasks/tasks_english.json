@@ -347,7 +347,8 @@
           {
             "id": "3.1",
             "title": "Implement news collection service",
-            "status": "pending",
+            "status": "completed",
+            "completedAt": "2025-01-11",
             "estimated_hours": 16,
             "details": [
               {
@@ -379,7 +380,8 @@
           {
             "id": "3.2",
             "title": "Integrate OpenAI for analysis",
-            "status": "pending",
+            "status": "completed",
+            "completedAt": "2025-01-11",
             "estimated_hours": 12,
             "details": [
               {
