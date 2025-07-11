@@ -1,3 +1,3 @@
-from . import auth, companies, news, watchlist
+from . import auth, companies, news, watchlist, notifications
 
-__all__ = ["auth", "companies", "news", "watchlist"]
+__all__ = ["auth", "companies", "news", "watchlist", "notifications"]

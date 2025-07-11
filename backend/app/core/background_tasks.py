@@ -7,6 +7,7 @@ from app.core.supabase import get_supabase_client
 from app.services.sentiment import SentimentPipeline
 from app.services.ai import BatchAnalyzer
 from app.services.news import NewsPipeline
+from app.services.notification import notification_service
 
 logger = logging.getLogger(__name__)
 
@@ -112,10 +113,13 @@ class BackgroundTaskManager:
                 logger.info(f"Analyzing impacts for {len(unanalyzed_ids)} articles")
                 
                 # 배치 분석 (시스템 사용자로)
-                await self.batch_analyzer.analyze_batch(
+                results = await self.batch_analyzer.analyze_batch(
                     article_ids=unanalyzed_ids[:20],  # 한 번에 20개씩
                     user_id='system'
                 )
+                
+                # 높은 영향도 알림 트리거
+                await self._trigger_impact_notifications(results)
                 
         except Exception as e:
             logger.error(f"Error analyzing company impacts: {str(e)}")
@@ -195,6 +199,82 @@ class BackgroundTaskManager:
         except Exception as e:
             logger.error(f"Error generating daily report: {str(e)}")
             return None
+            
+    async def _trigger_impact_notifications(self, analysis_results: Dict):
+        """영향도 분석 결과에 따른 알림 트리거"""
+        try:
+            if not analysis_results or 'results' not in analysis_results:
+                return
+                
+            for result in analysis_results['results']:
+                if 'error' in result:
+                    continue
+                    
+                # 높은 영향도 기사 확인
+                if 'companies_mentioned' in result:
+                    for company in result['companies_mentioned']:
+                        # 영향도 점수 추출 (AI 분석 결과에서)
+                        impact_score = 0.7  # 기본값, 실제로는 분석 결과에서 추출
+                        
+                        if impact_score >= 0.7:  # 높은 영향도
+                            # 해당 기업을 관심 목록에 추가한 사용자 조회
+                            user_ids = await notification_service.get_watchlist_users(
+                                company['id']
+                            )
+                            
+                            if user_ids:
+                                await notification_service.create_high_impact_notification(
+                                    article_id=result['article_id'],
+                                    company_id=company['id'],
+                                    impact_score=impact_score,
+                                    user_ids=user_ids
+                                )
+                                
+        except Exception as e:
+            logger.error(f"Error triggering impact notifications: {str(e)}")
+            
+    async def check_sentiment_changes(self):
+        """감정 변화 모니터링 및 알림"""
+        try:
+            # 각 기업의 최근 감정 변화 확인
+            companies = self.supabase.table('companies')\
+                .select('id')\
+                .execute()
+                
+            for company in companies.data:
+                company_id = company['id']
+                
+                # 24시간 전과 현재 감정 비교
+                market_sentiment_now = await self.sentiment_pipeline.get_market_sentiment(
+                    time_window_hours=1,
+                    company_id=company_id
+                )
+                
+                market_sentiment_before = await self.sentiment_pipeline.get_market_sentiment(
+                    time_window_hours=24,
+                    company_id=company_id
+                )
+                
+                if market_sentiment_now['total_articles'] > 0 and market_sentiment_before['total_articles'] > 0:
+                    current_score = market_sentiment_now['average_score']
+                    previous_score = market_sentiment_before['average_score']
+                    
+                    change = abs(current_score - previous_score)
+                    
+                    if change >= 0.3:  # 30% 이상 변화
+                        # 관심 사용자에게 알림
+                        user_ids = await notification_service.get_watchlist_users(company_id)
+                        
+                        if user_ids:
+                            await notification_service.create_sentiment_alert(
+                                company_id=company_id,
+                                old_sentiment=previous_score,
+                                new_sentiment=current_score,
+                                user_ids=user_ids
+                            )
+                            
+        except Exception as e:
+            logger.error(f"Error checking sentiment changes: {str(e)}")
 
 # 스케줄러 설정을 위한 작업 정의
 SCHEDULED_TASKS = {
@@ -222,5 +302,10 @@ SCHEDULED_TASKS = {
         'func': 'generate_daily_report',
         'interval_minutes': 1440,  # 24시간
         'description': '일일 리포트 생성'
+    },
+    'sentiment_check': {
+        'func': 'check_sentiment_changes',
+        'interval_minutes': 60,  # 1시간마다
+        'description': '감정 변화 모니터링'
     }
 }
