@@ -1,0 +1,351 @@
+{
+  "common": {
+    "appName": "FluxNews",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "retry": "다시 시도",
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제",
+    "edit": "수정",
+    "close": "닫기",
+    "search": "검색",
+    "filter": "필터",
+    "all": "전체",
+    "none": "없음",
+    "yes": "예",
+    "no": "아니오"
+  },
+  "navigation": {
+    "home": "홈",
+    "dashboard": "대시보드",
+    "newsFeed": "뉴스 피드",
+    "companies": "기업 네트워크",
+    "watchlist": "관심 목록",
+    "reports": "분석 리포트",
+    "settings": "설정",
+    "profile": "프로필",
+    "subscription": "구독 관리",
+    "logout": "로그아웃",
+    "login": "로그인",
+    "signup": "회원가입"
+  },
+  "landing": {
+    "hero": {
+      "title": "AI가 분석하는 글로벌 뉴스가",
+      "subtitle": "한국 기업에 미치는 영향",
+      "description": "매일 3,000개 이상의 글로벌 뉴스를 실시간으로 분석하여 한국 모빌리티·로보틱스 기업의 투자 기회를 포착하세요",
+      "cta": "무료로 시작하기",
+      "demo": "데모 보기",
+      "stats": {
+        "title": "신뢰하는 투자자들",
+        "activeUsers": "활성 사용자",
+        "dailyNews": "일일 분석 뉴스",
+        "accuracy": "예측 정확도"
+      }
+    },
+    "features": {
+      "title": "강력한 AI 분석 기능",
+      "realTimeAnalysis": {
+        "title": "실시간 AI 뉴스 분석",
+        "description": "글로벌 뉴스를 24시간 모니터링하고 즉시 분석"
+      },
+      "companyNetwork": {
+        "title": "기업 관계 네트워크",
+        "description": "80개 주요 기업의 상호 연결성 시각화"
+      },
+      "impactScore": {
+        "title": "영향도 점수",
+        "description": "뉴스가 기업에 미치는 영향을 0-1점으로 수치화"
+      },
+      "sentimentAnalysis": {
+        "title": "감정 분석",
+        "description": "FinBERT 모델로 시장 심리 정확히 파악"
+      },
+      "customAlerts": {
+        "title": "맞춤 알림",
+        "description": "관심 기업의 중요 뉴스를 실시간 알림"
+      },
+      "koreanOptimized": {
+        "title": "한국 시장 최적화",
+        "description": "한국 기업과 투자자를 위한 맞춤 분석"
+      }
+    },
+    "pricing": {
+      "title": "합리적인 가격",
+      "subtitle": "투자 스타일에 맞는 플랜을 선택하세요",
+      "monthly": "월간",
+      "yearly": "연간",
+      "free": {
+        "title": "무료",
+        "price": "₩0",
+        "features": [
+          "일일 3개 AI 분석",
+          "3개 기업 관심 목록",
+          "기본 뉴스 피드",
+          "주간 리포트"
+        ],
+        "cta": "무료로 시작"
+      },
+      "premium": {
+        "title": "프리미엄",
+        "price": "₩9,900",
+        "popular": "인기",
+        "features": [
+          "무제한 AI 분석",
+          "50개 기업 관심 목록",
+          "실시간 알림",
+          "네트워크 시각화",
+          "API 접근",
+          "우선 지원"
+        ],
+        "cta": "프리미엄 시작"
+      }
+    },
+    "cta": {
+      "title": "지금 시작하고",
+      "subtitle": "투자의 미래를 경험하세요",
+      "description": "매일 3,000개 이상의 글로벌 뉴스를 분석하여 한국 모빌리티·로보틱스 기업의 투자 기회를 포착하세요.",
+      "button": "무료로 시작하기",
+      "corporate": "기업 문의",
+      "noCreditCard": "신용카드 불필요",
+      "cancelAnytime": "언제든 취소 가능",
+      "instantStart": "즉시 시작"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "계정에 로그인",
+      "email": "이메일",
+      "password": "비밀번호",
+      "rememberMe": "로그인 상태 유지",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "submit": "로그인",
+      "noAccount": "아직 계정이 없으신가요?",
+      "signupLink": "무료로 시작하기",
+      "or": "또는",
+      "socialLogin": {
+        "google": "Google",
+        "github": "GitHub"
+      },
+      "errors": {
+        "invalidCredentials": "이메일 또는 비밀번호가 올바르지 않습니다",
+        "general": "로그인 중 오류가 발생했습니다"
+      },
+      "passwordResetSuccess": "비밀번호가 성공적으로 재설정되었습니다. 새 비밀번호로 로그인해주세요."
+    },
+    "signup": {
+      "title": "무료로 시작하기",
+      "email": "이메일",
+      "password": "비밀번호",
+      "confirmPassword": "비밀번호 확인",
+      "terms": "이용약관",
+      "privacy": "개인정보처리방침",
+      "agreeTerms": "이용약관 및 개인정보처리방침에 동의합니다",
+      "submit": "무료로 시작하기",
+      "hasAccount": "이미 계정이 있으신가요?",
+      "loginLink": "로그인",
+      "passwordHint": "대소문자, 숫자, 특수문자를 포함한 8자 이상",
+      "freePlanInfo": "가입 시 무료 플랜으로 시작하며, 매일 3개의 AI 분석을 이용할 수 있습니다.",
+      "errors": {
+        "emailRequired": "이메일을 입력해주세요",
+        "emailInvalid": "올바른 이메일 형식이 아닙니다",
+        "passwordRequired": "비밀번호를 입력해주세요",
+        "passwordWeak": "비밀번호는 대소문자, 숫자, 특수문자를 포함해야 합니다",
+        "passwordMismatch": "비밀번호가 일치하지 않습니다",
+        "termsRequired": "이용약관에 동의해주세요",
+        "emailExists": "이미 등록된 이메일입니다",
+        "general": "회원가입 중 오류가 발생했습니다"
+      },
+      "success": {
+        "title": "회원가입이 완료되었습니다!",
+        "message": "이메일로 전송된 확인 링크를 클릭하여 계정을 활성화해주세요",
+        "toLogin": "로그인 페이지로 이동"
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "환영합니다, {name}님!",
+    "newsFeed": {
+      "title": "뉴스 피드",
+      "subtitle": "글로벌 뉴스가 한국 기업에 미치는 영향을 실시간으로 분석합니다",
+      "stats": {
+        "todayNews": "오늘의 뉴스",
+        "analyzed": "AI 분석 완료",
+        "avgImpact": "평균 영향도",
+        "alerts": "관심 기업 알림"
+      },
+      "filters": {
+        "all": "전체",
+        "autonomous": "자율주행",
+        "robotics": "로보틱스",
+        "ev": "전기차",
+        "battery": "배터리",
+        "ai": "AI/플랫폼"
+      },
+      "newsCard": {
+        "impact": "영향도",
+        "sentiment": {
+          "positive": "긍정적",
+          "negative": "부정적",
+          "neutral": "중립적"
+        },
+        "save": "저장",
+        "share": "공유",
+        "analyze": "상세 분석",
+        "hoursAgo": "{hours}시간 전",
+        "daysAgo": "{days}일 전"
+      },
+      "empty": "검색 결과가 없습니다"
+    },
+    "companies": {
+      "title": "기업 네트워크",
+      "subtitle": "한국 모빌리티·로보틱스 기업들의 관계도를 시각화합니다",
+      "search": "기업 검색...",
+      "categories": {
+        "all": "전체 카테고리",
+        "semiconductor": "반도체",
+        "automotive": "자동차",
+        "battery": "배터리",
+        "robotics": "로보틱스",
+        "ai": "AI/플랫폼"
+      },
+      "nodeInfo": {
+        "marketCap": "시가총액",
+        "impact": "영향도",
+        "news": "뉴스"
+      },
+      "legend": {
+        "title": "범례",
+        "relationship": "관계 연결"
+      },
+      "details": {
+        "ceo": "CEO",
+        "founded": "설립",
+        "employees": "직원 수",
+        "headquarters": "본사",
+        "stockPrice": "주가",
+        "revenue": "매출액",
+        "operatingProfit": "영업이익",
+        "netIncome": "순이익",
+        "relationships": "관계 기업",
+        "recentNews": "최근 뉴스",
+        "networkImpact": "네트워크 영향도",
+        "mentioned": "최근 30일간 {count}건의 뉴스에서 언급",
+        "addToWatchlist": "관심 목록에 추가",
+        "viewAnalysis": "상세 분석"
+      }
+    },
+    "watchlist": {
+      "title": "관심 목록",
+      "subtitle": "관심 기업의 실시간 동향을 추적하고 알림을 받으세요",
+      "addCompany": "기업 추가",
+      "freeTierLimit": "무료 플랜: {current}/{limit}개 기업 사용 중",
+      "upgradeToPremium": "더 많은 기업을 추가하려면 프리미엄으로 업그레이드하세요.",
+      "filters": {
+        "all": "전체",
+        "alerts": "알림 설정",
+        "rising": "상승",
+        "falling": "하락"
+      },
+      "empty": {
+        "title": "관심 기업이 없습니다",
+        "description": "기업을 추가하여 실시간 동향을 추적하세요.",
+        "addFirst": "첫 기업 추가하기"
+      },
+      "card": {
+        "currentPrice": "현재가",
+        "impact": "영향도",
+        "news": "뉴스",
+        "price": "가격",
+        "recentNews": "최근 뉴스",
+        "positive": "긍정",
+        "negative": "부정",
+        "addedOn": "{date}에 추가됨",
+        "viewAnalysis": "상세 분석",
+        "viewChart": "차트 보기"
+      },
+      "alerts": {
+        "title": "알림 설정",
+        "price": "가격 변동 알림",
+        "news": "중요 뉴스 알림",
+        "impact": "영향도 변화 알림",
+        "priceThreshold": "알림 기준 (%)",
+        "priceHint": "±{value}% 이상 변동 시 알림",
+        "newsHint": "높은 영향도의 뉴스가 발생하면 알림을 받습니다",
+        "impactThreshold": "알림 기준 점수",
+        "impactHint": "영향도가 {value}% 이상일 때 알림",
+        "methods": {
+          "title": "알림 수신 방법",
+          "email": "이메일 알림 (가입 이메일로 발송)",
+          "push": "웹 푸시 알림 (브라우저 알림 허용 필요)",
+          "dashboard": "대시보드 알림 센터"
+        }
+      },
+      "addModal": {
+        "title": "기업 추가",
+        "search": "기업명 검색...",
+        "added": "추가됨",
+        "add": "추가",
+        "noResults": "검색 결과가 없습니다"
+      },
+      "recommended": {
+        "title": "추천 기업"
+      },
+      "summary": {
+        "totalCompanies": "전체 기업",
+        "rising": "상승",
+        "falling": "하락",
+        "avgImpact": "평균 영향도",
+        "totalNews": "총 뉴스",
+        "activeAlerts": "활성 알림"
+      }
+    }
+  },
+  "analysis": {
+    "title": "AI 상세 분석",
+    "confidence": "AI 분석 신뢰도",
+    "summary": "상세 분석",
+    "keyPoints": "핵심 포인트",
+    "affectedCompanies": "영향 받는 기업",
+    "impact": {
+      "high": "높음",
+      "medium": "중간",
+      "low": "낮음",
+      "level": "영향도"
+    },
+    "marketImpact": "시장 영향",
+    "recommendations": "투자 추천 사항",
+    "actions": {
+      "confirm": "확인",
+      "savePdf": "PDF로 저장"
+    }
+  },
+  "settings": {
+    "language": {
+      "title": "언어 설정",
+      "korean": "한국어",
+      "english": "English"
+    }
+  },
+  "formats": {
+    "currency": {
+      "krw": "₩{amount}",
+      "usd": "${amount}"
+    },
+    "percentage": "{value}%",
+    "date": {
+      "short": "MM/DD",
+      "medium": "YYYY년 MM월 DD일",
+      "long": "YYYY년 MM월 DD일 HH:mm"
+    },
+    "number": {
+      "compact": {
+        "thousand": "{value}천",
+        "million": "{value}백만",
+        "billion": "{value}억",
+        "trillion": "{value}조"
+      }
+    }
+  }
+}

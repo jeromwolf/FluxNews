@@ -1,0 +1,351 @@
+{
+  "common": {
+    "appName": "FluxNews",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "all": "All",
+    "none": "None",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "newsFeed": "News Feed",
+    "companies": "Company Network",
+    "watchlist": "Watchlist",
+    "reports": "Analysis Reports",
+    "settings": "Settings",
+    "profile": "Profile",
+    "subscription": "Subscription",
+    "logout": "Logout",
+    "login": "Login",
+    "signup": "Sign up"
+  },
+  "landing": {
+    "hero": {
+      "title": "AI-Powered Analysis of Global News Impact",
+      "subtitle": "on Korean Companies",
+      "description": "Track investment opportunities in Korean mobility and robotics companies with real-time analysis of 3,000+ global news articles daily",
+      "cta": "Start Free",
+      "demo": "View Demo",
+      "stats": {
+        "title": "Trusted by Investors",
+        "activeUsers": "Active Users",
+        "dailyNews": "Daily Analyzed News",
+        "accuracy": "Prediction Accuracy"
+      }
+    },
+    "features": {
+      "title": "Powerful AI Analysis Features",
+      "realTimeAnalysis": {
+        "title": "Real-time AI News Analysis",
+        "description": "24/7 monitoring and instant analysis of global news"
+      },
+      "companyNetwork": {
+        "title": "Company Relationship Network",
+        "description": "Visualize interconnections of 80 major companies"
+      },
+      "impactScore": {
+        "title": "Impact Score",
+        "description": "Quantify news impact on companies from 0-1"
+      },
+      "sentimentAnalysis": {
+        "title": "Sentiment Analysis",
+        "description": "Accurately gauge market sentiment with FinBERT"
+      },
+      "customAlerts": {
+        "title": "Custom Alerts",
+        "description": "Real-time notifications for companies you follow"
+      },
+      "koreanOptimized": {
+        "title": "Korean Market Optimized",
+        "description": "Tailored analysis for Korean companies and investors"
+      }
+    },
+    "pricing": {
+      "title": "Simple Pricing",
+      "subtitle": "Choose the plan that fits your investment style",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "free": {
+        "title": "Free",
+        "price": "$0",
+        "features": [
+          "3 AI analyses per day",
+          "3 company watchlist",
+          "Basic news feed",
+          "Weekly reports"
+        ],
+        "cta": "Start Free"
+      },
+      "premium": {
+        "title": "Premium",
+        "price": "$9.99",
+        "popular": "Popular",
+        "features": [
+          "Unlimited AI analyses",
+          "50 company watchlist",
+          "Real-time alerts",
+          "Network visualization",
+          "API access",
+          "Priority support"
+        ],
+        "cta": "Start Premium"
+      }
+    },
+    "cta": {
+      "title": "Start Now and",
+      "subtitle": "Experience the Future of Investing",
+      "description": "Capture investment opportunities in Korean mobility and robotics companies with analysis of 3,000+ global news articles daily.",
+      "button": "Start Free",
+      "corporate": "Corporate Inquiries",
+      "noCreditCard": "No credit card required",
+      "cancelAnytime": "Cancel anytime",
+      "instantStart": "Start instantly"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "email": "Email",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Start free",
+      "or": "Or",
+      "socialLogin": {
+        "google": "Google",
+        "github": "GitHub"
+      },
+      "errors": {
+        "invalidCredentials": "Invalid email or password",
+        "general": "An error occurred during login"
+      },
+      "passwordResetSuccess": "Password reset successfully. Please login with your new password."
+    },
+    "signup": {
+      "title": "Start Free",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "agreeTerms": "I agree to the Terms of Service and Privacy Policy",
+      "submit": "Start Free",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "passwordHint": "At least 8 characters with uppercase, lowercase, numbers, and special characters",
+      "freePlanInfo": "Start with the free plan and get 3 AI analyses per day.",
+      "errors": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email format",
+        "passwordRequired": "Password is required",
+        "passwordWeak": "Password must contain uppercase, lowercase, numbers, and special characters",
+        "passwordMismatch": "Passwords do not match",
+        "termsRequired": "You must agree to the terms",
+        "emailExists": "Email already registered",
+        "general": "An error occurred during signup"
+      },
+      "success": {
+        "title": "Signup Complete!",
+        "message": "Please check your email and click the confirmation link to activate your account",
+        "toLogin": "Go to login"
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome, {name}!",
+    "newsFeed": {
+      "title": "News Feed",
+      "subtitle": "Real-time analysis of global news impact on Korean companies",
+      "stats": {
+        "todayNews": "Today's News",
+        "analyzed": "AI Analyzed",
+        "avgImpact": "Avg Impact",
+        "alerts": "Company Alerts"
+      },
+      "filters": {
+        "all": "All",
+        "autonomous": "Autonomous Driving",
+        "robotics": "Robotics",
+        "ev": "Electric Vehicles",
+        "battery": "Battery",
+        "ai": "AI/Platform"
+      },
+      "newsCard": {
+        "impact": "Impact",
+        "sentiment": {
+          "positive": "Positive",
+          "negative": "Negative",
+          "neutral": "Neutral"
+        },
+        "save": "Save",
+        "share": "Share",
+        "analyze": "Detailed Analysis",
+        "hoursAgo": "{hours}h ago",
+        "daysAgo": "{days}d ago"
+      },
+      "empty": "No results found"
+    },
+    "companies": {
+      "title": "Company Network",
+      "subtitle": "Visualize relationships between Korean mobility and robotics companies",
+      "search": "Search companies...",
+      "categories": {
+        "all": "All Categories",
+        "semiconductor": "Semiconductor",
+        "automotive": "Automotive",
+        "battery": "Battery",
+        "robotics": "Robotics",
+        "ai": "AI/Platform"
+      },
+      "nodeInfo": {
+        "marketCap": "Market Cap",
+        "impact": "Impact",
+        "news": "News"
+      },
+      "legend": {
+        "title": "Legend",
+        "relationship": "Relationship"
+      },
+      "details": {
+        "ceo": "CEO",
+        "founded": "Founded",
+        "employees": "Employees",
+        "headquarters": "Headquarters",
+        "stockPrice": "Stock Price",
+        "revenue": "Revenue",
+        "operatingProfit": "Operating Profit",
+        "netIncome": "Net Income",
+        "relationships": "Related Companies",
+        "recentNews": "Recent News",
+        "networkImpact": "Network Impact",
+        "mentioned": "Mentioned in {count} news articles in the last 30 days",
+        "addToWatchlist": "Add to Watchlist",
+        "viewAnalysis": "View Analysis"
+      }
+    },
+    "watchlist": {
+      "title": "Watchlist",
+      "subtitle": "Track real-time trends and receive alerts for companies you follow",
+      "addCompany": "Add Company",
+      "freeTierLimit": "Free plan: {current}/{limit} companies",
+      "upgradeToPremium": "Upgrade to Premium to add more companies.",
+      "filters": {
+        "all": "All",
+        "alerts": "Alerts Set",
+        "rising": "Rising",
+        "falling": "Falling"
+      },
+      "empty": {
+        "title": "No companies in watchlist",
+        "description": "Add companies to track real-time trends.",
+        "addFirst": "Add First Company"
+      },
+      "card": {
+        "currentPrice": "Current Price",
+        "impact": "Impact",
+        "news": "News",
+        "price": "Price",
+        "recentNews": "Recent News",
+        "positive": "Positive",
+        "negative": "Negative",
+        "addedOn": "Added on {date}",
+        "viewAnalysis": "View Analysis",
+        "viewChart": "View Chart"
+      },
+      "alerts": {
+        "title": "Alert Settings",
+        "price": "Price Change Alert",
+        "news": "Important News Alert",
+        "impact": "Impact Change Alert",
+        "priceThreshold": "Alert Threshold (%)",
+        "priceHint": "Alert when change exceeds ±{value}%",
+        "newsHint": "Receive alerts for high-impact news",
+        "impactThreshold": "Alert Threshold Score",
+        "impactHint": "Alert when impact exceeds {value}%",
+        "methods": {
+          "title": "Alert Methods",
+          "email": "Email alerts (sent to registered email)",
+          "push": "Web push notifications (browser permission required)",
+          "dashboard": "Dashboard notification center"
+        }
+      },
+      "addModal": {
+        "title": "Add Company",
+        "search": "Search company name...",
+        "added": "Added",
+        "add": "Add",
+        "noResults": "No results found"
+      },
+      "recommended": {
+        "title": "Recommended Companies"
+      },
+      "summary": {
+        "totalCompanies": "Total Companies",
+        "rising": "Rising",
+        "falling": "Falling",
+        "avgImpact": "Avg Impact",
+        "totalNews": "Total News",
+        "activeAlerts": "Active Alerts"
+      }
+    }
+  },
+  "analysis": {
+    "title": "AI Detailed Analysis",
+    "confidence": "AI Analysis Confidence",
+    "summary": "Detailed Analysis",
+    "keyPoints": "Key Points",
+    "affectedCompanies": "Affected Companies",
+    "impact": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "level": "Impact Level"
+    },
+    "marketImpact": "Market Impact",
+    "recommendations": "Investment Recommendations",
+    "actions": {
+      "confirm": "Confirm",
+      "savePdf": "Save as PDF"
+    }
+  },
+  "settings": {
+    "language": {
+      "title": "Language Settings",
+      "korean": "한국어",
+      "english": "English"
+    }
+  },
+  "formats": {
+    "currency": {
+      "krw": "₩{amount}",
+      "usd": "${amount}"
+    },
+    "percentage": "{value}%",
+    "date": {
+      "short": "MM/DD",
+      "medium": "MMM DD, YYYY",
+      "long": "MMM DD, YYYY HH:mm"
+    },
+    "number": {
+      "compact": {
+        "thousand": "{value}K",
+        "million": "{value}M",
+        "billion": "{value}B",
+        "trillion": "{value}T"
+      }
+    }
+  }
+}

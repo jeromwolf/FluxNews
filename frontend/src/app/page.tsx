@@ -1,15 +1,5 @@
-import HeroSection from '@/components/landing/HeroSection'
-import FeaturesSection from '@/components/landing/FeaturesSection'
-import PricingSection from '@/components/landing/PricingSection'
-import CTASection from '@/components/landing/CTASection'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
-  return (
-    <main className="min-h-screen">
-      <HeroSection />
-      <FeaturesSection />
-      <PricingSection />
-      <CTASection />
-    </main>
-  )
+export default function RootPage() {
+  redirect('/ko')
 }

@@ -3,6 +3,7 @@
 import { Fragment } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations, useLocale } from 'next-intl'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { 
   Bars3Icon, 
@@ -14,18 +15,7 @@ import {
   BellIcon
 } from '@heroicons/react/24/outline'
 import { useAuth } from '@/components/auth/AuthProvider'
-
-const navigation = [
-  { name: '뉴스 피드', href: '/dashboard', icon: NewspaperIcon },
-  { name: '기업 네트워크', href: '/dashboard/companies', icon: BuildingOfficeIcon },
-  { name: '관심 목록', href: '/dashboard/watchlist', icon: BookmarkIcon },
-  { name: '분석 리포트', href: '/dashboard/reports', icon: ChartBarIcon },
-]
-
-const userNavigation = [
-  { name: '프로필 설정', href: '/dashboard/settings' },
-  { name: '구독 관리', href: '/dashboard/subscription' },
-]
+import LanguageSwitcher from '@/components/common/LanguageSwitcher'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -33,7 +23,22 @@ function classNames(...classes: string[]) {
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const locale = useLocale()
   const { user, signOut } = useAuth()
+  const t = useTranslations('navigation')
+  const tCommon = useTranslations('common')
+
+  const navigation = [
+    { name: t('newsFeed'), href: `/${locale}/dashboard`, icon: NewspaperIcon },
+    { name: t('companies'), href: `/${locale}/dashboard/companies`, icon: BuildingOfficeIcon },
+    { name: t('watchlist'), href: `/${locale}/dashboard/watchlist`, icon: BookmarkIcon },
+    { name: t('reports'), href: `/${locale}/dashboard/reports`, icon: ChartBarIcon },
+  ]
+
+  const userNavigation = [
+    { name: t('profile'), href: `/${locale}/dashboard/settings` },
+    { name: t('subscription'), href: `/${locale}/dashboard/subscription` },
+  ]
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -43,9 +48,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="flex h-16 justify-between">
                 <div className="flex">
-                  <Link href="/dashboard" className="flex flex-shrink-0 items-center">
+                  <Link href={`/${locale}/dashboard`} className="flex flex-shrink-0 items-center">
                     <span className="text-2xl font-bold bg-gradient-to-r from-electric-blue to-neon-purple bg-clip-text text-transparent">
-                      FluxNews
+                      {tCommon('appName')}
                     </span>
                   </Link>
                   <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -67,6 +72,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   </div>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
+                  <div className="mr-3">
+                    <LanguageSwitcher />
+                  </div>
                   <button
                     type="button"
                     className="rounded-full bg-white dark:bg-gray-800 p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-electric-blue focus:ring-offset-2"
@@ -123,7 +131,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                                 'block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300'
                               )}
                             >
-                              로그아웃
+                              {t('logout')}
                             </button>
                           )}
                         </Menu.Item>

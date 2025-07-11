@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations, useLocale } from 'next-intl'
 import { loginSchema, type LoginInput } from '@/lib/validations/auth'
 import { supabase } from '@/lib/supabase'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
@@ -12,6 +13,9 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const locale = useLocale()
+  const t = useTranslations('auth.login')
+  const tCommon = useTranslations('common')
   const [isLoading, setIsLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -19,9 +23,9 @@ function LoginForm() {
 
   useEffect(() => {
     if (searchParams.get('reset') === 'success') {
-      setSuccessMessage('비밀번호가 성공적으로 재설정되었습니다. 새 비밀번호로 로그인해주세요.')
+      setSuccessMessage(t('passwordResetSuccess'))
     }
-  }, [searchParams])
+  }, [searchParams, t])
 
   const {
     register,
@@ -42,14 +46,14 @@ function LoginForm() {
       })
 
       if (error) {
-        setError('이메일 또는 비밀번호가 올바르지 않습니다')
+        setError(t('errors.invalidCredentials'))
         return
       }
 
-      router.push('/dashboard')
+      router.push(`/${locale}/dashboard`)
       router.refresh()
     } catch {
-      setError('로그인 중 오류가 발생했습니다')
+      setError(t('errors.general'))
     } finally {
       setIsLoading(false)
     }
@@ -65,10 +69,10 @@ function LoginForm() {
       })
       
       if (error) {
-        setError(`${provider} 로그인 중 오류가 발생했습니다`)
+        setError(t('errors.general'))
       }
     } catch {
-      setError('소셜 로그인 중 오류가 발생했습니다')
+      setError(t('errors.general'))
     }
   }
 
@@ -76,21 +80,21 @@ function LoginForm() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <Link href="/" className="flex justify-center">
+          <Link href={`/${locale}`} className="flex justify-center">
             <span className="text-4xl font-bold bg-gradient-to-r from-electric-blue to-neon-purple bg-clip-text text-transparent">
-              FluxNews
+              {tCommon('appName')}
             </span>
           </Link>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-            계정에 로그인
+            {t('title')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
-            아직 계정이 없으신가요?{' '}
+            {t('noAccount')}{' '}
             <Link
-              href="/signup"
+              href={`/${locale}/signup`}
               className="font-medium text-electric-blue hover:text-blue-500 transition-colors"
             >
-              무료로 시작하기
+              {t('signupLink')}
             </Link>
           </p>
         </div>
@@ -110,7 +114,7 @@ function LoginForm() {
           <div className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                이메일
+                {t('email')}
               </label>
               <input
                 {...register('email')}
@@ -126,7 +130,7 @@ function LoginForm() {
 
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                비밀번호
+                {t('password')}
               </label>
               <div className="mt-1 relative">
                 <input
@@ -163,13 +167,13 @@ function LoginForm() {
                 className="h-4 w-4 text-electric-blue focus:ring-electric-blue border-gray-300 rounded"
               />
               <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
-                로그인 상태 유지
+                {t('rememberMe')}
               </label>
             </div>
 
             <div className="text-sm">
-              <Link href="/forgot-password" className="font-medium text-electric-blue hover:text-blue-500">
-                비밀번호를 잊으셨나요?
+              <Link href={`/${locale}/forgot-password`} className="font-medium text-electric-blue hover:text-blue-500">
+                {t('forgotPassword')}
               </Link>
             </div>
           </div>
@@ -180,7 +184,7 @@ function LoginForm() {
               disabled={isLoading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-electric-blue hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-electric-blue disabled:opacity-50 disabled:cursor-not-allowed transition-all"
             >
-              {isLoading ? '로그인 중...' : '로그인'}
+              {isLoading ? `${t('submit')}...` : t('submit')}
             </button>
           </div>
 
@@ -189,7 +193,7 @@ function LoginForm() {
               <div className="w-full border-t border-gray-300 dark:border-gray-600" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gray-50 dark:bg-gray-900 text-gray-500">또는</span>
+              <span className="px-2 bg-gray-50 dark:bg-gray-900 text-gray-500">{t('or')}</span>
             </div>
           </div>
 
@@ -217,7 +221,7 @@ function LoginForm() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              <span className="ml-2">Google</span>
+              <span className="ml-2">{t('socialLogin.google')}</span>
             </button>
 
             <button
@@ -232,7 +236,7 @@ function LoginForm() {
                   clipRule="evenodd"
                 />
               </svg>
-              <span className="ml-2">GitHub</span>
+              <span className="ml-2">{t('socialLogin.github')}</span>
             </button>
           </div>
         </form>
