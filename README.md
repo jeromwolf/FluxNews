@@ -29,6 +29,7 @@ FluxNews analyzes global news in real-time to assess impact on Korean companies 
 
 - Node.js 18+ 
 - Python 3.9+
+- Redis 6.0+
 - Supabase account
 - OpenAI API key
 - Git
@@ -84,12 +85,21 @@ venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
+# Start Redis (required for caching)
+# On macOS:
+brew services start redis
+# On Linux:
+sudo systemctl start redis
+# On Windows:
+# Download and run Redis from https://redis.io/download
+
 # Run development server
 uvicorn app.main:app --reload
 ```
 
 ✅ Backend API available at: http://localhost:8000  
-📚 API Documentation: http://localhost:8000/docs
+📚 API Documentation: http://localhost:8000/docs  
+🔄 WebSocket endpoint: ws://localhost:8000/ws
 
 ### 5. Frontend Setup
 
@@ -132,6 +142,20 @@ npm run dev
 - `PUT /api/v1/watchlist/{id}` - Update watchlist item
 - `DELETE /api/v1/watchlist/{id}` - Remove from watchlist
 
+#### Notifications
+- `WS /ws` - WebSocket connection for real-time notifications
+- `GET /api/v1/notifications` - Get notification history
+- `PUT /api/v1/notifications/{id}/read` - Mark as read
+- `PUT /api/v1/notifications/settings` - Update preferences
+
+#### Subscription
+- `GET /api/v1/subscription/plans` - Get available plans
+- `GET /api/v1/subscription/current` - Get current subscription
+- `POST /api/v1/subscription/create` - Create subscription
+- `PUT /api/v1/subscription/upgrade` - Upgrade plan
+- `POST /api/v1/subscription/cancel` - Cancel subscription
+- `GET /api/v1/subscription/usage/summary` - Get usage statistics
+
 Full interactive documentation available at http://localhost:8000/docs
 
 ## 🧪 Testing
@@ -166,7 +190,16 @@ FluxNews/
 │   ├── app/
 │   │   ├── api/            # API endpoints
 │   │   ├── core/           # Core configurations
-│   │   └── models/         # Data models
+│   │   ├── db/             # Database utilities
+│   │   ├── models/         # Data models
+│   │   └── services/       # Business logic services
+│   │       ├── ai/         # AI/ML services
+│   │       ├── cache/      # Caching services
+│   │       ├── impact/     # Impact calculation
+│   │       ├── news/       # News collection
+│   │       ├── notification/ # Real-time notifications
+│   │       ├── sentiment/  # Sentiment analysis
+│   │       └── subscription/ # Subscription management
 │   └── requirements.txt    # Python dependencies
 ├── .taskmaster/            # Task management system
 ├── docs/                   # Documentation
