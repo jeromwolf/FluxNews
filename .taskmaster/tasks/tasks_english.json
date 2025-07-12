@@ -408,7 +408,8 @@
           {
             "id": "3.3",
             "title": "Setup FinBERT sentiment analysis",
-            "status": "pending",
+            "status": "completed",
+            "completedAt": "2025-01-12",
             "estimated_hours": 12,
             "details": [
               {
@@ -435,7 +436,8 @@
           {
             "id": "3.4",
             "title": "Create impact scoring algorithm",
-            "status": "pending",
+            "status": "completed",
+            "completedAt": "2025-01-12",
             "estimated_hours": 16,
             "details": [
               {
@@ -467,7 +469,8 @@
           {
             "id": "3.5",
             "title": "Implement real-time alerts",
-            "status": "pending",
+            "status": "completed",
+            "completedAt": "2025-01-12",
             "estimated_hours": 12,
             "details": [
               {
@@ -494,7 +497,8 @@
           {
             "id": "3.6",
             "title": "Build subscription management",
-            "status": "pending",
+            "status": "completed",
+            "completedAt": "2025-01-12",
             "estimated_hours": 8,
             "details": [
               {

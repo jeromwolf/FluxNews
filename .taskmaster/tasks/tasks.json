@@ -401,7 +401,8 @@
           {
             "id": "3.3",
             "title": "FinBERT 감정 분석 설정",
-            "status": "대기",
+            "status": "완료",
+            "completedAt": "2025-01-12",
             "estimated_hours": 12,
             "details": [
               {
@@ -428,7 +429,8 @@
           {
             "id": "3.4",
             "title": "영향도 점수 알고리즘 생성",
-            "status": "대기",
+            "status": "완료",
+            "completedAt": "2025-01-12",
             "estimated_hours": 16,
             "details": [
               {
@@ -460,7 +462,8 @@
           {
             "id": "3.5",
             "title": "실시간 알림 구현",
-            "status": "대기",
+            "status": "완료",
+            "completedAt": "2025-01-12",
             "estimated_hours": 12,
             "details": [
               {
@@ -487,7 +490,8 @@
           {
             "id": "3.6",
             "title": "구독 관리 구축",
-            "status": "대기",
+            "status": "완료",
+            "completedAt": "2025-01-12",
             "estimated_hours": 8,
             "details": [
               {

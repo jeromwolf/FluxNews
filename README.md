@@ -17,9 +17,11 @@ FluxNews analyzes global news in real-time to assess impact on Korean companies 
 ## 🛠 Tech Stack
 
 - **Frontend**: Next.js 14 + TypeScript + Tailwind CSS + Shadcn/ui
-- **Backend**: FastAPI + Python 3.9+
+- **Backend**: FastAPI + Python 3.9+ + Pydantic
 - **Database**: Supabase (PostgreSQL) with Neo4j migration planned
+- **Cache**: Redis for high-performance caching
 - **AI/ML**: OpenAI GPT-4 API + HuggingFace (FinBERT)
+- **Real-time**: WebSocket for live notifications
 - **Authentication**: Supabase Auth
 - **Deployment**: Frontend on Vercel, Backend on Railway
 
@@ -54,6 +56,8 @@ cp frontend/.env.local.example frontend/.env.local
 SUPABASE_URL=your_supabase_url
 SUPABASE_KEY=your_supabase_anon_key
 OPENAI_API_KEY=your_openai_api_key
+REDIS_URL=redis://localhost:6379
+DATABASE_URL=your_supabase_postgres_url
 ```
 
 **Frontend (.env.local)**:
@@ -180,14 +184,23 @@ FluxNews/
 - [x] Korean/English localization
 - [x] Backend API implementation
 - [x] Frontend-backend integration
+- [x] News collection service (RSS + Google News)
+- [x] OpenAI integration for AI analysis
+- [x] FinBERT sentiment analysis
+- [x] Impact score algorithm
+- [x] Real-time notifications (WebSocket)
+- [x] Subscription management system
+- [x] Performance optimization (Redis caching, DB pooling)
 
 ### Upcoming Features 🚧
-- [ ] Real-time news data ingestion
-- [ ] Advanced AI analysis with FinBERT
-- [ ] Push notifications for alerts
+- [ ] Real-time news data pipeline
+- [ ] Advanced analytics dashboard
+- [ ] Push notifications for mobile
 - [ ] Mobile app development
 - [ ] Neo4j graph database migration
-- [ ] Premium subscription management
+- [ ] Payment gateway integration
+- [ ] API rate limiting and monitoring
+- [ ] Admin dashboard
 
 ## 🤝 Contributing
 

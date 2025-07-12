@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth, companies, news, watchlist, notifications
+from app.api.v1.endpoints import auth, companies, news, watchlist, notifications, subscription
 
 api_router = APIRouter()
 
@@ -8,3 +8,4 @@ api_router.include_router(companies.router, prefix="/companies", tags=["companie
 api_router.include_router(news.router, prefix="/news", tags=["news"])
 api_router.include_router(watchlist.router, prefix="/watchlist", tags=["watchlist"])
 api_router.include_router(notifications.router, prefix="/notifications", tags=["notifications"])
+api_router.include_router(subscription.router, prefix="/subscription", tags=["subscription"])
